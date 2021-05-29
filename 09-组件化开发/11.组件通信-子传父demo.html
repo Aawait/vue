@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 组件通信总结：
+            父传子数据：
+           1. 再创建子组件对象中的props对象中定义变量
+           2. 注册组件（哪里使用哪里注册，一般用局部组件）
+           3. 再使用组件模板的时候，再组件标签上。使用v-bind动态绑定props定义的变量作为属性接收父组件传递的数据 -->
+           <cpn :c-counter="fcounter"></cpn>
+
+            <!-- 子传父数据：
+            1. 子组件通过自定义事件发射 this.$emit(自定义事件名,需要传递的数据)
+            2. 注册组件
+            3. 再使用组件模板的时候，再组件标签上。绑定监听子组件发射过来的自定义事件，再对应的事件处理函数中拿到子组件传递的数据 -->
+           <!-- 2.再组件标签上绑定监听自定义事件 事件对应的处理函数内部拿到数据 -->
+          <cpn @son-click="fchange"></cpn>
+         <h2 :style="{color:'red'}">{{fcounter}}</h2> 
+    </div>
+    
+    <script type="text/x-template" id="cpn">
+        <div>
+            <button @click="cpnClick">点击改变父组件的数据</button>
+            <h5>{{counter}}</h5>
+            <h1>{{cCounter}}</h1>
+        </div>
+    </script>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const cpn = {
+            template:"#cpn",
+            props:['cCounter'],
+            data(){
+              return {
+                  counter:0
+              }
+            },
+            methods:{
+                cpnClick(){
+                    // 官方不推荐直接改变 props里面的变量 会直接报错 推荐使用data对象或者computed对象
+                    //    this.cCounter++
+                    this.counter++;
+                    // 1.子组件发射自定义事件并传递数据过去
+                    this.$emit('son-click',this.counter);
+                }
+            }
+        }
+        const app = new Vue({
+            el:"#app",
+            data:{
+                fcounter:0
+            },
+            components:{
+                cpn
+            },
+            methods:{
+                fchange(sonData){
+                      console.log(sonData);
+                      this.fcounter = sonData
+                }
+            }
+        })
+    </script>
+</body>
+</html>

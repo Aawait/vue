@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div id="app">
+        
+         <table v-cloak>
+             <thead>
+                 <tr>
+                     <th>#</th>
+                     <th>书籍名称</th>
+                     <th>出版日期</th>
+                     <th>价格</th>
+                     <th>购买数量</th>
+                     <th>操作</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <tr v-if="books.length === 0">
+                   <td></td>
+                   <td></td>
+                   <td></td>  
+                   <td></td>
+                   <td></td>
+                   <td>购物车为空</td>
+                 </tr>
+                <tr v-for="(book,index) in books" v-else>
+                    <td>{{book.id}}</td>
+                    <td>{{book.name}}</td>
+                    <td>{{book.date}}</td>
+                    <!-- 过滤器会自动把book.price 当成参数传递到过滤器函数中  语法加个 | 再后面加上过滤器函数-->
+                    <td>{{book.price | showPrice}}</td>  
+                     <td>                                <!--  动态绑定disabled属性 后面是一个布尔值 -->
+                        <button @click="decrement(index)" :disabled="book.num === 1">-</button>
+                        <span>{{book.num}}</span> 
+                        <button @click="increment(index)">+</button>
+                    </td>
+                    <td><button @click="remove(index)">删除</button></td>
+                </tr>
+             </tbody>
+            
+             <h2 v-cloak>总价格：{{totalPrice | showPrice}}</h2>
+         </table>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+    el:"#app",
+    data:{
+        books:[
+        {
+            id:110,
+            name:'HTML5从入门到入土',
+            price:168,
+            date:"2021-5",
+            num:1
+        },
+        {
+            id:111,
+            name:'3天精通python',
+            price:128,
+            date:"2020-5",
+            num:1
+        },
+        {
+            id:112,
+            name:'深入JavaScript',
+            price:168,
+            date:"2019-5",
+            num:1
+       },
+        {
+            id:113,
+            name:'Java从入门到放弃',
+            price:38,
+            date:"2018-5",
+            num:1
+        },
+        {
+            id:114,
+            name:'大数据人工智能',
+            price:888,
+            date:"2017-5",
+            num:1
+        }]
+    },
+    methods:{
+      decrement(index){
+             this.books[index].num -- 
+      },
+      increment(index){
+          this.books[index].num ++ 
+      },
+      remove(index){
+          this.books.splice(index,1);
+      }
+    },
+    computed:{
+        totalPrice(){
+           return this.books.reduce((pre,item)=>{
+                  return pre += item.price * item.num
+            },0)
+        }
+    },
+    filters:{  // filters 过滤器 这个对象里面放的一般都是函数 它会自动把要过滤的东西当成参数传到这个形参
+        showPrice(price){
+            return '￥' + price.toFixed(2);
+        }
+    }
+})
+    </script>
+</body>
+</html>

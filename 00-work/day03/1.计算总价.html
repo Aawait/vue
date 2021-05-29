@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+       西瓜： <input type="text" v-model="watermelon">
+       橙子： <input type="text" v-model="orange">
+       芒果： <input type="text" v-model="mango">
+       苹果： <input type="text" v-model="apple">
+       梨子： <input type="text" v-model="pears">
+
+       <!-- 使用过滤器的时候，会自动把totalPrice传递到对应的过滤器函数进行处理 -->
+       <h1>总价：{{totalPrice | fullPrice}}</h1>
+       <h2>filter反转字符串：{{message | reverseStr}}</h2>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el :"#app",
+            data :{
+                watermelon :"",
+                orange :"",
+                mango :"",
+                apple :"",
+                pears :"",
+                message:"filters"
+            },
+            computed :{
+               totalPrice(){
+                   const total = this.watermelon*1 + this.orange*1 + this.mango*1 + this.apple*1 + this.pears *1 ;
+                   return total;
+               }
+            },
+            filters:{
+               // filters 过滤器 这个对象里面放的一般都是函数 它会自动把要过滤的东西当成参数传递过来
+               fullPrice(price){
+                    return "￥" + price.toFixed(2);
+               },
+               reverseStr(str){
+                   return str.split('').reverse().join('');
+               }
+            }
+        })
+    </script>
+</body>
+</html>

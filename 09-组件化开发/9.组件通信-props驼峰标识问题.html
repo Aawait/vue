@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 3.使用组件 -->
+        <!-- props如果是驼峰命名的变量 我们该怎么去用 -->
+        <!-- 注意 v-bind识别不了驼峰标识属性 会报警告 并且连接不到props中驼峰定义的变量 -->
+          <!-- <cpn1 :cmessage="message" :cInfo="info"></cpn1> -->
+          
+          <!-- 解决:用-号连接单词 不用驼峰标识 就能识别这个v-bind指令属性 也不会报警告 能拿到父组件传递来的数据 -->
+          <cpn1 :c-say-hi="sayHi" :c-info="info"  :cmessage="message"></cpn1>  
+    </div>
+
+    <!-- 创建一个组件模板 -->
+    <template id="cpn1">
+        <!-- 注意 组件模板多行一定要用一个容器包裹起来 不然会报错 -->
+        <div>
+            <h2>{{cmessage}}</h2>
+            <hr>
+            <h2>{{cInfo}}</h2>
+            <h2>{{cSayHi}}</h2>
+        </div>
+    </template>
+    <script src="../lib/vue.js"></script>
+    <script>
+         // 1.创建组件对象
+        const cpn1 = {
+            template:'#cpn1',
+            props:{
+                cmessage:{
+                    type:String,
+                    default :"不传值我是默认值"
+                },
+                cInfo:{
+                    type:[String,Number],
+                    default : "cInfo的默认值"
+                },
+                cSayHi:{
+                    type: Object,
+                    default(){  // type为object的时候 default必须为一个函数 并且要返回一个对象
+                        return {}
+                    }
+                }
+            }
+        }
+        const app = new Vue({
+            el:"#app",
+            data:{
+                message:"hello props",
+                info:"props驼峰标识问题",
+                sayHi:{
+                    name:'cici',
+                    age:18,
+                    height:182
+                }
+            },
+            components:{
+                cpn1  // 2.注册组件
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+         <ul>
+             <!-- v-for遍历数组 item代表数组中的每一项 -->
+             使用v-for的时候尽量动态绑定key这个属性 并且key的属性值进来要和item一一对应 做每一个节点的唯一标识
+             虚拟DOM的内容就像有一个线 连接着真实DOM 真实DOM的内容是虚拟DOM映射上去的
+             如果没有key 插值的时候  真实DOM后面的节点它会一一挪位 并在最后创建新节点 插入新节点后面的元素都会被影响
+             这样如果需要再数组中间插值的时候 diff算法就可以正确的识别此节点 找到正确的位置并插入新节点
+             一句话 key的作用主要就是为了高效的更新虚拟DOM
+             <li v-for="item in arr" :key="item">{{item}}</li>
+         </ul>
+
+         <ul>
+             <!-- v-for 遍历数组 如果需要索引值 就用括号括起来 第一个参数item为每一项 第二个参数index为每一项对应的索引值 -->
+             <li v-for="(item,index) in arr">{{item}}-{{index}}</li>
+         </ul>
+
+        
+         <ul>
+             <!-- v-for 遍历对象 如果只获取一个值 那么item代表对象中的每一个value -->
+             <li v-for="item in obj">{{item}}</li>
+         </ul>
+          
+         <ul>
+               <!-- v-for 遍历对象 如果需要获取对象的key 格式：(value,key) 注意 第一个参数是value 第二个参数是key 还可以有第三个参数index 为对象的索引 -->
+             <li v-for="(value,key,index) in obj">{{value}}+{{key}}+{{index}}</li>
+         </ul>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:"#app",
+            data:{
+                arr:["名侦探柯南","最炫小苹果","哈利路亚","海贼王"],
+                obj:{
+                    name:'cici',
+                    age:24,
+                    height:182,
+                    weight:132
+                }
+            },
+            methods:{},
+            computed:{}
+        })
+    </script>
+</body>
+</html>

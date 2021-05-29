@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 出于对性能的优化 vue会将这些内容放到虚拟DOM上 然后由虚拟DOM传递到真的DOM元素上显示  -->
+        <!-- 虚拟DOM不会将同样的内容创建两次 他只会缓存一次  -->
+        <!-- 当虚拟DOM发现 替换的内容 和之前一样 他不会创造 而是直接复用 再把不一样的地方修改 修改后再渲染到DOM层上 -->
+        <!-- 所以当切换内容显示的时候 虚拟DOM并不会把输入框的内容清空 -->
+        <!-- 如果想阻止虚拟DOM复用 给元素添加key属性 如果两者的key不同 相当于告诉虚拟DOM这个元素不复用要创建 那么虚拟DOM会创造两个元素 而不是直接复用 -->
+        <!-- key相当于标识 虚拟DOM发现两个元素的key相同的时候 会直接复用 key不同的话 会创建新的元素 -->
+        <p v-if="isShow">
+            <label for="username">用户名称</label>
+            <input type="text" id="username" placeholder="输入用户名" key="username">
+        </p>
+        <p v-else>
+            <label for="email">用户邮箱</label>
+            <input type="text" id="email" placeholder="输入邮箱" key="email">
+        </p>
+        <button @click="isShow = !isShow">点击切换登录</button>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:"#app",
+            data:{
+                isShow:true
+            }
+        })
+    </script>
+</body>
+</html>

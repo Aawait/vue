@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+       <cpn></cpn>
+       <cpn>
+           <!-- 再父组件的作用域内，是无法访问到子组件的data数据的，会报错，因此向再这里拿到子组件的data并改变插槽是不行的 -->
+           <!-- <span v-for="item in languages">{{item}}-</span> -->
+        </cpn>
+        <cpn>
+           <!-- 2.这时候就要使用作用域插槽了 -->
+           <!-- 子组件定义好自定义插槽并保存了子组件内部的data数据后 -->
+           <!-- 我们再父组件的作用域内接收这个数据 需要给套上一层template标签 通过这个template标签去拿子组件的数据  -->
+           <template slot-scope="slot">
+                <!-- 目的是获取子组件的数据 这是一个固定的方法 再template标签上加一个slot-scope属性 属性值是自定义的名字 -->
+                <!-- 这个自定义的slot会引用子组件的插槽对象 就可以拿到子组件 :data保存的数据了 -->
+                <!-- slot.data 就是子组件 :data保存的数据 -->
+                <span v-for="item in slot.data">{{item}} - </span>
+           </template>
+
+       </cpn>
+
+       <cpn>
+           <!-- 这样就能再父组件的作用域内，拿到子组件插槽的数据 做任意操作 做一些改变 -->
+           <template slot-scope="slot">
+              <span>{{slot.data.join(' * ')}}</span>
+           </template>
+       </cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <!-- 有时候子组件再父组件内展示的时候，父组件想改变子组件的布局，但是子组件用的是自己的数据 -->
+            <!-- 1.定义作用域插槽  再子组件内slot标签上添加v-bind自定义属性 这个属性保存子组件data中的数据-->
+            <slot :data="languages">
+                <ul>
+                    <li v-for="item in languages">{{item}}</li>
+                </ul>
+            </slot>
+        </div>
+    </template>
+
+    <script src="../lib/vue.js"></script>
+    <script>
+
+        const app = new Vue({
+            el:"#app",
+            components:{
+                cpn : {
+                   template:"#cpn",
+                   data(){
+                       return {
+                           languages:["javaScript","java","python","c++","Go","PHP"]
+                       }
+                   }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

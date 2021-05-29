@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+         <!-- Mustache语法，双大括号 {{}} -->
+       <h2>你好啊，{{message}}</h2>
+       <h3 v-on:mouseover="num++">{{message +' '+ num}}</h3>
+       
+       <!-- Mustache语法中，不仅可以写变量，也可以写简单的表达式 -->
+       <h3 @click="num--">{{message}} {{num*2}}</h3>
+
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+          const app = new Vue({
+              el:'#app',
+              data : {
+                  message:'hello vue',
+                  num:0
+              },
+              methods : {
+                 add(){
+                     this.num ++ 
+                     console.log('我加1了');
+                 }
+              }
+          });
+    </script>
+</body>
+</html>

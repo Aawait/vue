@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>{{num}}</h1>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        /*
+         在实例的生命周期中，再特定阶段执行的一些特定的事件，这些事件，叫做生命周期函数
+        */
+        const app = new Vue({
+            el :"#app",
+            data :{
+                num:10
+            },
+            methods :{
+               hello(){
+                   console.log("hello");
+               }
+            },
+            // 创建期间的生命周期函数：特点  一辈子只会执行一次
+            beforeCreate(){
+                // vue实例创建之前，此时的data对象和methods 未定义
+                console.log("beforeCreate",this.num); //  undefined
+                // this.hello();  报错
+            },
+            created(){
+                // vue实例创建之后 第一个重要的函数 此时的data 和 methods 初始化完毕 可以访问其中的数据了
+                // 我们经常再created中，调用methods中的方法，给服务器发请求获取数据 然后存在data对象中
+                console.log("created",this.num);
+            },
+            beforeMount(){
+                // dom挂载前，此时页面的内容还没有渲染到浏览器中
+                // 此时内存中已经有了模板了，但是尚未把模板渲染到页面中
+                // 因此再这个函数中，浏览器里面的内容并不是真实的页面
+
+                console.log("beforeMounte");
+            },
+            mounted(){
+                // DOM挂载后，第二个重要的函数 此时页面刚刚被渲染出来，如果要操作DOM元素，最好是这个阶段
+                // 创建阶段的最后一个函数，它表示页面首次被渲染出来
+                
+                console.log("mounted");
+                // 如果项目中需要初始化某些js插件，那么这些插件，需要再mounted中进行初始化
+            },
+
+            // 运行期间的生命周期函数 :特点 按需要被调用，最少0次最多n次
+            beforeUpdate(){
+                // 数据是最新的，页面是旧的，此时虚拟DOM还未渲染页面
+                // beforeUpdate 在数据更新后虽然没立即更新数据，但是DOM中的数据会改变，这是vue双向绑定数据的作用
+                console.log("beforeUpdate");
+            },
+            updated(){
+                // 当执行updated函数，就说明页面已经被渲染好了，此时数据是最新的，页面也是最新的
+                console.log("updated");
+
+            },
+            // 销毁期间的生命周期函数：特点 每个实例一辈子只执行一次
+            beforeDestroy(){
+                // 销毁之前 实例还可以正常使用
+                // 此时，实例还没有完全 销毁，实例上所有数据和事件监听都能正常使用
+                console.log("beforeDestroy");
+            },
+            destroyed(){
+                // 销毁之后，vue实例已经不再工作了
+                // 页面的数据和事件监听都被清除
+                console.log("destroyed");
+            }
+        })
+    </script>
+</body>
+</html>

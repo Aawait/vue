@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+         <!-- 2. 通过v-bind绑定属性 将父组件的数据传递给子组件 用子组件的props中的变量接收 -->
+         <!-- 注意 这里的动态绑定的属性一定要是子组件中 props对象中定义的变量 属性值是父组件中想要传递给子组件的那个数据 -->
+         <!-- 如果不是v-bind 它会把movies当成字符串赋值给这个props的变量 而不是去vue的data对象去找这个变量 -->
+          <cpn :cmovies="movies" :cmessage="message"></cpn>
+          <cpn :cmovies="movies" :cmessage="message"></cpn>
+    </div>
+    <template id="cpn">
+        <!-- 3.父组件传递了数据只后，可以再子组件的模板中使用父组件传递过来的数据了 -->
+        <!-- 子组件跨域访问不到父组件的数据 会报错 -->
+        <!-- 注意 这里的子组件无法跨域访问父组件的data对象数据 ，所以只能用自己组件的data对象数据 或者 props接收父组件传递的数据 -->
+       <div>
+           <h2>我是子组件</h2>
+           <ul>
+               <li v-for="item in cmovies">{{item}}</li>
+           </ul>
+           <h2>{{cmessage}}</h2>
+       </div>
+    </template>
+    <script src="../lib/vue.js"></script>
+    <script>
+
+        /*
+        我们在开发中，一般请求服务器的数据放在最上层。这样通过组件通信将需要的数据传递给下层子组件就行，减少对服务器的请求次数。
+         -   所以 我们往往需要一些数据从上层传递给下层。
+         父组件传递数据给子组件：
+              【1】通过子组件中的props对象，再props对象中定义变量
+              【2】再使用这个组件的时候，通过v-bind动态绑定，将父组件的数据赋值给子组件props中的变量
+              【3】然后再子组件的template模板中就可以使用这些数据，可以进行遍历渲染等操作了
+          
+        
+        */
+
+        // 创建一个组件对象,
+        const cpn = {
+            template:"#cpn" , // 引入template模板到组件中
+            // 1.官方提供props属性 可以接收父组件传递过来的数据 它可以是一个数组，数组中是一个又一个变量
+            props:["cmovies","cmessage"],
+        }
+        const app = new Vue({
+            el :"#app",
+            data :{
+                movies:["名侦探柯南","速度与激情","疾速追杀","谍影重重"],
+                message :"你好阿 props"
+            },
+            components:{  
+                // 注册一个局部组件,并将组件对象cpn引入
+                cpn
+
+            }
+        })
+    </script>
+</body>
+</html>

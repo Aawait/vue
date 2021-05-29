@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 再项目中我们可能需要把一些数据进行操作后，再把结果在放入dom中，这时候就可以应用computed计算属性 -->
+        <h2>总价格 ：{{totalPrice}}</h2>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{
+                books :[
+                    {id:110,name:'HTML5从入门到入土',price:168},
+                    {id:111,name:'3天精通python',price:128},
+                    {id:112,name:'深入JavaScript',price:168},
+                    {id:113,name:'Java从入门到放弃',price:38},
+                    {id:114,name:'大数据人工智能',price:888},
+                ]
+            },
+            computed:{
+                totalPrice : function(){
+                    return this.books.reduce(function(pre,item){
+                          pre += item.price
+                          return pre;
+                    },0)
+                }
+            }
+        });
+    </script>
+</body>
+</html>

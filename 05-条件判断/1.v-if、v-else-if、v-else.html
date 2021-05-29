@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+             display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+          <!-- if else 条件判断语句 决定这段代码是否再页面上显示 -->
+        <div v-if="isShow">
+             <div>1</div>
+             <div>1</div>
+             <div>1</div>
+             <div>1</div>
+             <div>1</div>
+        </div>
+        <div v-else v-cloak>
+            我是 isShow 为false 显示的内容
+        </div>
+ 
+
+        <!-- v-if v-else-if  满足条件的时候才会将这个标签显示出来 -->
+        <!-- 这种比较多的判断逻辑 建议不用标签指令 看起来很乱 使用计算属性更加合适 -->
+       <h2 v-cloak v-if="score>=90">优秀</h2>
+       <h2 v-cloak v-else-if="score>=80">良好</h2>
+       <h2 v-cloak v-else-if="score>=60">及格</h2>
+       <h2 v-cloak v-else>不及格</h2>
+      
+       <!-- 使用计算属性更加合适 -->
+       <h1 v-cloak>{{result}}</h1>
+    </div>
+    <script src="../lib/vue.js"></script>
+   <script>
+       const app = new Vue({
+           el:"#app",
+           data:{
+               message:"优秀",
+               score : 99,
+               isShow : true
+           },
+           computed:{
+               result(){
+                   let showMessage ;
+                   if(this.score >= 90){
+                       showMessage = "优秀"
+                   }else if(this.score >= 80){
+                       showMessage = "良好"
+                   }else if(this.score >= 60){
+                       showMessage = "及格"
+                   }else{
+                       showMessage = "不及格"
+                   }
+
+                   return showMessage;
+               }
+           }
+       })
+   </script>
+</body>
+</html>

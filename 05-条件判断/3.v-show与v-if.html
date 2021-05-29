@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- v-show 和 v-if 非常类似 就决定一个元素是否渲染 -->
+        <!-- v-if条件为false的时候，压根不会有对应的元素再DOM中 -->
+        <!-- v-show的条件为false的时候，仅仅是将元素的display属性设置为none -->
+
+        <!-- 当需要显示影藏频繁切换的时候，使用v-show 只有一次切换的时候 使用v-if -->
+        <h1 v-cloak v-if="flag">{{message}}</h1>
+        <h1 v-cloak v-show="flag">{{message}}</h1>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:"#app",
+            data:{
+                message : "你好阿",
+                flag : true
+            },
+            methods:{},
+            computed:{}
+        });
+    </script>
+</body>
+</html>

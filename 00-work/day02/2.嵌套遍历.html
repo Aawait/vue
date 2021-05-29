@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+          <div v-for="drink in drinks" :key="drink.id">
+              <h2>{{drink.name}}</h2>
+              <ul>
+                  <li v-for="item in drink.itemse" :key="item.id">
+                      <h3>{{item.text}}</h3>
+                       <p v-for="(three,index) in item.arr3" :key="index" >
+                           <span :style="{color:'red'}">{{three.text}}</span>
+                           <span v-for="(four,index) in three.arr4" :style="{color:'#333',margin:'0 10px'}">{{four.name}}---{{four.price}}</span>
+                       </p>
+                  </li>
+              </ul>
+              
+          </div>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                drinks: [{
+                        id: 1,
+                        name: "可乐",
+                        itemse: [{
+                                id: 4,
+                                text: "冷冻可乐",
+                                arr3: [{
+                                    text: '农夫可乐',
+                                    arr4:[{name:'可乐四层嵌套',price:9.9},{name:'可乐四层嵌套2',price:8.8}]
+                                }, {
+                                    text: '农夫可乐',
+                                    arr4:[{name:'可乐四层嵌套',price:9.9},{name:'可乐四层嵌套2',price:8.8}]
+
+                                }]
+                            },
+                            {
+                                id: 5,
+                                text: "香草可乐",
+                                arr3: [{
+                        
+                                    text: '农夫可乐',
+
+                                    arr4:[{name:'可乐四层嵌套',price:9.9},{name:'可乐四层嵌套2',price:8.8}]
+                                }, {
+                                    text: '农夫可乐',
+                                    arr4:[{name:'可乐四层嵌套',price:9.9},{name:'可乐四层嵌套2',price:8.8}]
+
+                                }]
+                            },
+                        ],
+                    },
+
+                    {
+                        id: 2,
+                        name: "雪碧",
+                        itemse: [{
+                                id: 6,
+                                text: "冷冻雪碧",
+                                arr3: [{
+                                    text: '农夫雪碧',
+                                    arr4:[{name:'雪碧四层嵌套',price:9.9},{name:'雪碧四层嵌套2',price:8.8}]
+
+                                }, {
+                                    text: '农夫雪碧',
+                                    arr4:[{name:'雪碧四层嵌套',price:9.9},{name:'雪碧四层嵌套2',price:8.8}]
+                                    
+                                }]
+                            },
+                            {
+                                id: 7,
+                                text: "青柠雪碧",
+                                arr3: [{
+                                    text: '农夫雪碧',
+                                    arr4:[{name:'雪碧四层嵌套',price:9.9},{name:'雪碧四层嵌套2',price:8.8}]
+
+                                }, {
+                                    text: '农夫雪碧',
+                                    arr4:[{name:'雪碧四层嵌套',price:9.9},{name:'雪碧四层嵌套2',price:8.8}]
+
+                                }]
+                            },
+                        ],
+                    },
+                    {
+                        id: 3,
+                        name: "橙汁",
+                        itemse: [{
+                                id: 8,
+                                text: "冷冻橙汁",
+                                arr3: [{
+                                    text: '农夫橙汁',
+                                    arr4:[{name:'橙汁四层嵌套',price:9.9},{name:'橙汁四层嵌套2',price:8.8}]
+
+                                }, {
+                                    text: '农夫橙汁',
+                                    arr4:[{name:'橙汁四层嵌套',price:9.9},{name:'橙汁四层嵌套2',price:8.8}]
+
+                                }]
+                            },
+                            {
+                                id: 9,
+                                text: "鲜榨橙汁",
+                                arr3: [{
+                                    text: '农夫橙汁',
+                                    arr4:[{name:'橙汁四层嵌套',price:9.9},{name:'橙汁四层嵌套2',price:8.8}]
+                                    
+                                }, {
+                                    text: '农夫橙汁',
+                                    arr4:[{name:'橙汁四层嵌套',price:9.9},{name:'橙汁四层嵌套2',price:8.8}]
+
+                                }]
+                            },
+                        ],
+                    },
+                ],
+            }
+        })
+    </script>
+</body>
+
+</html>

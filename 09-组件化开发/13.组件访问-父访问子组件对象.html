@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 只有再组件上加上ref的属性，父组件才能通过 $refs 方法拿到具体相对应的子组件 比$children更常用的方法 -->
+        <!-- ref属性对应的是一个字符串，这个字符串是作为一个key标识符，value就是这个子组件 -->
+        <cpn ref="one"></cpn>
+        <cpn ref="two"></cpn>
+        <cpn></cpn>
+        <button @click="cpnf">按钮</button>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h1>我是子组件的标题</h1>
+
+        </div>
+    </template>
+    <script src="../lib/vue.js"></script>
+    <script>
+        // 子组件必须定义再vue初始化之前，否则报错找不到
+        // const cpn = {
+        //     template: "#cpn",
+        //     methods: {
+        //         say() {
+        //             console.log("子组件的say方法");
+        //         }
+        //     },
+        //     data() {
+        //         return {
+        //             name: "子组件的name属性"
+        //         }
+        //     }
+        // }
+
+
+
+
+        const app = new Vue({
+            el: "#app",
+            data: {
+                message: "你好阿"
+            },
+
+            methods: {
+                cpnf() {
+                    // 父组件访问子组件的属性和方法
+                    //   1. this.$children 方法返回一个数组 里面是所有子组件对象的集合
+                    //   通过this.$children[i]索引的形式  我们可以直接再父组件中调用对应子组件对象的方法和属性
+                    // console.log(this.$children);
+
+                    // this.$children[0].say();
+                    // console.log(this.$children[0].name);
+
+
+                    //  2. this.$refs 方法 默认是一个空对象 只有再组件标签上添加了ref属性，并赋值，才能访问相对应的子组件
+                    console.log(this.$refs);  // 得到一个对象 {one: VueComponent, two: VueComponent}
+
+                    // 可以通过this.$refs.key（标识符）  拿到这个对应的子组件对象
+                    // $refs方法比$children更加精准，比起通过索引拿对象的方式，如果中间插入其他组件那么就会乱，$refs并不会乱，他都有一个唯一对应的key
+                    this.$refs.one.say();
+                    console.log(this.$refs.two.name);
+                }
+            },
+            components: {
+                cpn: {
+                    template: "#cpn",
+                    methods: {
+                        say() {
+                            console.log("子组件的say方法");
+                        }
+                    },
+                    data() {
+                        return {
+                            name: "子组件的name属性"
+                        }
+                    }
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

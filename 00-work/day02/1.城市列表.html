@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <h1 v-for="(city,index) in arr" :key="index">{{city}}</h1>
+        </div>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el :"#app",
+            data :{
+                arr : ['北京','上海','广州','深圳','香港特别行政区','澳门','天津','厦门','石家庄','杭州','无锡','成都','武汉']
+            }
+        })
+    </script>
+</body>
+</html>

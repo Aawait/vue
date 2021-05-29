@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p{
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            line-height: 200px;
+            font-size: 20px;
+            transition: all ease .8s;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button @click="change">点击渐变</button>
+        <p :style="{background}">你看我72变</p>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:"#app",
+            data:{
+                background:"rgb(201,201,201)"
+            } ,
+            methods :{
+                change(){
+                   let random1 = parseInt(Math.random() * 255) ;
+                   let random2 = parseInt(Math.random() * 255) ;
+                   let random3 = parseInt(Math.random() * 255) ;
+                   this.background = `rgb(${random1},${random2},${random3})`;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

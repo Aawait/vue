@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 组件的插槽是为了让我们封装的插槽更有扩展性，可以自己决定组件内部的一些内容到底是什么，不必把组件内部的内容写死 -->
+        <!-- 有一些组件它有一些区别，也有一些共性 -->
+
+        <cpn>
+           <!-- 使用插槽，往组件标签内放内容即可 -->
+           <button>按钮</button>
+        </cpn>
+
+       <cpn>
+           <!-- 如果不覆盖插槽内容，不写内容即可 -->
+       </cpn>
+       <cpn>
+           
+        <span>我是替换插槽的span</span>
+       </cpn>
+       <cpn>
+           <!-- 如果有多个值，同时放入组件中进行替换时，会一起作为替换元素，覆盖默认值 -->
+           <div>
+               <p>hello</p>
+               <p>slot</p>
+               <input type="text">
+           </div>
+       </cpn>
+    </div>
+
+    <template id="cpn">
+         <div>
+             <!-- 如果我们写死组件的内容，这样不够灵活 每使用一次 得到的组件都是一模一样的-->
+             <h1>我是cpn组件</h1>
+             <!-- <button>按钮</button>   -->
+
+             <!-- 1.使用插槽 slot ，为模板留一个空位，再使用的时候决定它里面放什么内容，这样可以让每个组件都可以灵活使用这个插槽，组件有更强的扩展性 -->
+             <!-- <slot></slot> -->
+
+             <!-- 当有多个地方使用组件 他有一些共同点的时候，抽取共性加入slot中，可以给插槽一个默认值，使用的时候如果想要别的内容，直接再组件使用时覆盖就行 -->
+             <slot> <button>按钮</button> </slot>
+         </div>
+    </template>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el :"#app",
+            data :{},
+            components:{
+                cpn :{
+                    template:"#cpn",
+
+                }
+            }
+        })
+    </script>
+</body>
+</html>

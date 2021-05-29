@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="app">
+          <h3 :style="{color,fontSize:fontSize+'px'}">{{message}}</h3>
+
+          <!-- 2.监听子组件发射的自定义事件，再对应的事件处理函数拿到子组件传递的参数 -->
+          <cpn @blod="fontChange">
+               <!-- 使用作用域插槽 再组件内包裹一层 template 在标签上定义slot-scope属性 来拿到这个子组件对象 -->
+              <template slot-scope="slot">
+                   <!-- 拿到子组件的slot对象后，就可以调用子组件的方法或访问属性了 -->
+                  <button  @click="slot.change">点击我让父组件字体加粗</button>
+            </template>
+          </cpn>
+    </div>
+       
+    <template id="cpn">
+           <div>
+               <p>我是子组件---------------</p>
+               <!-- 作用域插槽，让父组件能获取这个函数 -->
+               <slot :change="change">
+                   <!-- <button @click="change">点击我让父组件字体加粗</button> -->
+               </slot>
+           </div>
+    </template>
+
+    <script src="../lib/vue.js"></script>
+    <script>
+           // 需求，点击子组件的按钮，给父组件字体加粗9px
+           const app = new Vue({
+               el:"#app",
+               data:{
+                   message:"hello component",
+                   fontSize:20,
+                   color:"#f00"
+               },
+               methods:{
+
+                fontChange(font){
+                
+                    console.log("接收到子组件发射的事件了并拿到参数了");
+                    
+                    // 3.拿到子组件传递过来的参数 并改变自己的字体大小
+                    this.fontSize = Number(this.fontSize + font);
+                }
+               },
+               components:{
+                   cpn : {
+                       template:"#cpn",
+                       methods:{
+                           change(){
+                               console.log("进来子组件的点击事件了");
+                               
+                               // 1.发射自定义事件
+                               this.$emit('blod',30);
+                           }
+                       }
+                   }
+               }
+           })
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <cpn2></cpn2>
+         <!-- 此时页面还能使用子组件吗？不可以，因为子组件注册再父组件的作用域中，
+            只能再父组件内部使用，如果想再这里使用，必须再vue实例中再注册cpn1 -->
+        <cpn1></cpn1>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        // 1.创建子组件构造器
+        const cpn1 = Vue.extend({
+            template:`<div>
+             <h2>我是标题</h2>
+             <p>我是内容，哈哈哈哈</p>
+             </div>`,
+        }) 
+        // 2. 创建父组件构造器  父组件中嵌套子组件，子组件再父组件内部components对象中注册即可
+        const cpn2 = Vue.extend({
+            template:`
+            <div>
+                <cpn1></cpn1>  
+                <h2>我是标题2</h2>
+                <p>我是内容2，呵呵呵呵</p>
+            </div>
+            `,
+            components:{   // 再父组件内注册子组件 这样就能再这个父组件的模板内嵌套子组件
+                cpn1:cpn1    
+            }
+        })
+
+
+        // vue实例可以理解为根组件 即最顶层的组件
+        const app = new Vue({
+            el:"#app",
+            components:{  // 然后注册子组件
+               cpn2:cpn2,
+               cpn1:cpn1   // 注册再父组件内的子组件，只能再父组件的模板中使用，如果想在局部或全局使用。那么再全局、局部注册一次
+            }
+        });
+    </script>
+</body>
+</html>

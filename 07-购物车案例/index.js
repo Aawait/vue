@@ -1,0 +1,43 @@
+
+
+const app = new Vue({
+    el:"#app",
+    data:{
+        books:[
+        {
+            id:110,
+            name:'HTML5从入门到入土',
+            price:168,
+            date:"2021-5",
+            num:1
+        },
+        {
+            id:111,
+            name:'3天精通python',
+            price:128,
+            date:"2020-5",
+            num:1
+        },
+        {
+        id:112,
+        name:'深入JavaScript',
+        price:168,
+        date:"2019-5",
+        num:1
+       },
+        {
+            id:113,
+            name:'Java从入门到放弃',
+            price:38,
+            date:"2018-5",
+            num:1
+        },
+        {
+            id:114,
+            name:'大数据人工智能',
+            price:888,
+            date:"2017-5",
+            num:1
+        }]
+    }
+})

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #app {
+            width: 100%;
+            height: 100%;
+            padding: 50px 0;
+            background-image: url(https://z3.ax1x.com/2021/05/21/g7ddLn.jpg);
+            background-size: 100% 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+          <cpn></cpn>
+    </div>
+
+
+    <template id="cpn">
+        <div :style="setBoxStyle()">
+            <button :style="setBtnStyle()" @click="getData">查看中奖名单</button>
+            <ul :style="setUlStyle()">
+                    <h2 :style="setH2Style()">中奖名单</h2>
+                <li :style="setLiStyle()">
+                    <span :style="setSpanStyle()">宇宙唯一ID</span>
+                    <span :style="setSpanStyle()">用户名</span>
+                    <span :style="setSpanStyle()">密码</span>
+                </li>
+
+                <li :style="setLiStyle()" v-for="item in arr">
+                     <span :style="setSpanStyle()">{{item._id}}</span>
+                     <span :style="setSpanStyle()">{{item.username}}</span>
+                     <span :style="setSpanStyle()">{{item.password}}</span>
+                </li>
+            </ul>
+        </div>
+    </template>
+
+    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            components: {
+                cpn: {
+                   template:"#cpn",
+                   data(){
+                       return{
+                           arr:[]
+                       }
+                   },
+                   methods:{
+                    setBoxStyle(){
+                       return {
+                           display:"flex",
+                           flexDirection:"column",
+                           justifyContent:"center",
+                           alignItems:"center",
+                           margin :"0 auto",
+                           width : "800px",
+                       }
+                    },
+                       setBtnStyle(){
+                           return {
+                               width : "100px",
+                               height : "30px",
+                               background : '#ccc',
+                               border : "1px solid #ddd",
+                               color :"#f00"
+                           }
+                       },
+                       setUlStyle(){
+                           return {
+                               width :'100%',
+                               background : "rgba(241,241,241,0.4)",
+                               color : '#000',
+                               listStyle : 'none',
+                               margin : "20px 0"
+                           }
+                       },
+                       setH2Style(){
+                           return {
+                               color :"skyblue",
+                               textAlign :"center",
+                               height:"40px",
+                               border : "1px solid #skyblue",
+                           }
+                       },
+                       setLiStyle(){
+                           return {
+                               height:"40px",
+                               width : "100%",
+                               display :"flex",
+                               color :"#000",
+                               borderBottom : "1px solid #ccc",
+                           }
+                       },
+                       setSpanStyle(){
+                           return {
+                               width:"33.33%",
+                               textAlign:"center",
+                               lineHeight:"40px"
+                           }
+                       },
+
+
+                       getData(){
+                            axios({
+                                url:"http://127.0.0.1:2600/vue/users"
+                            }).then(res=>{
+                                console.log(res);
+                                this.arr = res.data;
+                            })
+                       }
+                   }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

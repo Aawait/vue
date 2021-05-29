@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const mymixin = {
+            beforeCreate(){
+                console.log("mixin的beforCreate");
+            },
+            created(){
+                console.log("mixin的created");
+            },
+            methods:{
+                helloVue(){
+                    console.log("进入mixin里面了");
+                }
+                ,
+                helloMixin(){
+                    console.log("进入mixin里面了");
+
+                }
+            }
+
+        }
+
+        // 当mixin和vue实例中存在重复的生命周期函数时，vue会先执行mixin混入的生命周期函数，再执行自己实例的生命周期函数
+        const app = new Vue({
+            created(){
+                console.log("vue里的created");
+                // 跟先后位置无关，默认会先执行mixin混入的对象
+                // 当mixin中也有methods对象。并且对象中有方法和实例上的methods方法名冲突，会执行实例methods的方法不会执行mixin的方法
+                this.helloVue();
+                this.helloMixin();
+            },
+            mixins : [mymixin],
+            el:"#app",
+            data:{},
+            methods:{
+                helloVue(){
+                    console.log("vue实例里面的mixin");
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

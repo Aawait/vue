@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <div id="app">
+         <!--错误的写法 注意 Mustanche 语法只能写在标签的内容区，无法写再属性上，浏览器会直接当成字符串解析 -->
+         <!-- <img src="{{imgUrl}}" alt=""> -->
+
+
+         <!-- 使用v-bind 指令 需要给哪个属性绑定动态属性，就再哪个属性前面加 ,使用了v-bind指令，才会让属性里面的内容成为变量，不再是一个普通的字符串-->
+         <img v-bind:src="imgUrl" alt="">
+
+         <a v-bind:href="aHref">百度一下吗</a>
+
+         <!-- 语法糖的写法 -->
+         <img :src="imgUrl" alt="">
+         <a :href="aHref"></a>
+     </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el :'#app',
+            data:{
+                message:'hello vue',
+                imgUrl:'https://img.alicdn.com/imgextra/i4/2053469401/O1CN01IZH0Wn2JJi555xah5_!!2053469401.jpg',
+                aHref :'https://www.jd.com/'
+            }
+        });
+    </script>
+</body>
+</html>

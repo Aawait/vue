@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+        <button v-on:click="btn1Click()">按钮1</button>
+
+        <button @click="btn2Click(123)">按钮2</button>
+
+        <!-- 事件定义中 写方法时省略了小括号，但是方法本身时需要一个参数的，这个时候，Vue会将浏览器产生的event对象作为参数传递给执行方法中 -->
+        <button @click="btn3Click">按钮3</button>
+        <!-- 事件方法定义时 如果又需要传参 也需要事件对象event  事件对象可以传参时用 $event 表示 vue内部会把这个解析成事件对象并传递进方法 -->
+        <!-- $event 写的顺序无关 但接收的形参必须与之顺序对应  -->
+        <button @click="btn4Click(100,$event)">按钮4</button>
+        <button>按钮5</button>
+
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:"#app",
+            data:{
+                message:"hello vue"
+            },
+            methods:{                    // 事件方法的参数情况
+                 btn1Click(btn1){
+                     console.log(btn1); //1.调用时写了小括号不传参 形参为undefined
+                 },
+                 btn2Click(btn2){
+                   console.log(btn2);   //2.调用方法时写了小括号传了参 形参为传递过来的实参123
+                 },
+                 btn3Click(btn3){
+                    console.log(btn3);  //3.调用时没写小括号 形参为事件对象event
+                 },
+                 btn4Click(btn4,event){
+                     console.log(btn4,event); // 4.多个参数需要用 $event 关键字拿到事件对象传递进来并接收 顺序要和传递一致才能拿到事件对象 
+                 }
+                 
+                 
+            },
+            computed:{
+
+            }
+        })
+    </script>
+</body>
+</html>

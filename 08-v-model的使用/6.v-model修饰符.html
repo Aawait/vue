@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+       <label for="inp">
+           <!-- v-model 的好处是输入框的值改变了 与之绑定的data对象的值也会立即发生改变 -->
+           <!-- 坏处 是改变的频率太高了 -->
+           <!-- 有时候需要再特定的情况下才改变它的值 -->
+           <input type="text" id="inp" v-model="message">
+       </label>
+         
+       <!-- 1. lazy修饰符   
+        v-model默认是再input事件中同步输入框的数据到data对象进行双向绑定 -->
+       <!-- 也就是说 一旦有数据改变对应的data中的数据就会自动发生改变 -->
+       <!-- lazy修饰符可以让数据再失去焦点或回车时才会更新 -->
+       <label for="">
+           <input type="text" v-model.lazy="message">
+       </label>
+       <h2>{{message}}</h2>
+
+
+       <!-- 2. number修饰符
+       默认情况下，再输入框中无论我们输入的是数字还是字母，都会被当成字符串类型进行处理
+       但是如果我们希望处理的是数字类型，那么最好将内容直接当成数字
+       number修饰符可以让再输入框中输入的内容自动转换成数字类型 -->
+       <label for="">
+           <input type="number" name="" id="" v-model.number="num">
+       </label>
+       <h2>{{num}} ---{{typeof num}}</h2>
+      
+       <!-- 3. trim修饰符
+       如果输入的内容首位有很多空格，通常我们希望将其去除
+       trim修饰符可以过滤内容左右两边的空格 -->
+       <label for="">
+        <input type="text" name="" id="" v-model.trim="message">
+    </label>
+    <h2>{{message}}</h2>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:"#app",
+            data:{
+                message:'Nihao',
+                num:0
+            },
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- methods 方法 每次执行都会调用一次函数  -->
+        <h2>{{getFullname()}}</h2>
+        <h2>{{getFullname()}}</h2>
+        <h2>{{getFullname()}}</h2>
+        <h2>{{getFullname()}}</h2>
+        <h2>{{getFullname()}}</h2>
+
+        <!-- computed 计算属性 vue内部会缓存 如果数据没有发生改变 只会从vue缓存中返回 不会多次调用这个函数 -->
+        <!-- 如果有需要多次使用的地方 使用计算属性性能更好 如果值发生改变 vue内部会监听到 并把最新的值缓存到vue内部中 -->
+        <h2>{{fullName}}</h2>
+        <h2>{{fullName}}</h2>
+        <h2>{{fullName}}</h2>
+        <h2>{{fullName}}</h2>
+        <h2>{{fullName}}</h2>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:"#app",
+            data:{
+               firstName : 'kobe',
+               lastName : 'brant'
+            },
+            methods:{
+              getFullname:function(){
+                  console.log("我是methods看我执行几次");
+                  return this.firstName + ' ' + this.lastName;
+              }
+            },
+            computed:{
+                fullName:function(){
+                    console.log("我是computed看我执行几次");
+                    return this.firstName + ' ' + this.lastName;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+                        
+            <!-- 实现相关功能 -->
+                        <input type="checkbox" v-model="checked" @change="checkAll"  />全选
+                        <button @click='antiselect'>反选</button>
+                    
+        </div>
+                <ul>
+                        <li v-for="(item,index) in cartData" style="list-style: none" :key='item.id'>
+                                <input type="checkbox" :value="item.id" v-model="checkArr"  />
+                                商品ID：{{item.id}}&emsp;&emsp; 商品名称：{{item.name}}&emsp;&emsp;
+                                商品价格：{{item.price}}&emsp;&emsp; 商品数量：<button @click="dec(item,index)">
+                                        -
+                                    </button>
+                                {{item.num}}<button @click="inc(item)">+</button>&emsp;&emsp;
+                                商品小计：{{item.price * item.num}}
+                            </li>
+                    </ul>
+                <h1>总价 {{total}}</h1>
+                <button @click='all'>查看checkAll</button>
+
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+    var cartData = [
+            { id: 1, name: '苹果', num: 1, price: 100 },
+            { id: 2, name: '小米', num: 1, price: 200 },
+            { id: 3, name: '华为', num: 1, price: 300 },
+        ]
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                cartData,
+                checked: false,
+                checkArr: []
+            },
+            computed: {
+                // 计算总价
+                total() {
+                    console.log('进入computed计算总价了1')
+                    console.log('this.checkArr', this.checkArr)
+                
+                        console.log('进入computed计算总价了2')
+                        console.log('this.checkArr', typeof (this.checkArr))
+                        let sum = 0
+                        this.cartData.forEach(element => {
+                            // 确定当前循环的商品是否被选中
+                         
+
+                            let pos = this.checkArr.indexOf(element.id)
+                            if (pos > -1) {
+                                sum += element.num * element.price
+                            }
+                        })
+                        return sum
+                 
+                }
+            },
+            watch: {
+                checkArr() {
+                    console.log('进入watch')
+                    if (this.checkArr.length == this.cartData.length) {
+                        this.checked = true
+                    } else {
+                        this.checked = false
+                    }
+                }
+            },
+            methods: {
+                dec(item, index) {
+                    console.log('进入dec')
+                    if (item.num == 1) {
+                        confirm('机不可失 确定不再买一件吗?') && this.cartData.splice(index, 1)
+                    } else {
+                        item.num--
+                    }
+                },
+                all() {
+                    console.log('进入查看全部arr')
+                    console.log(this.checkArr)
+                },
+                inc(item) {
+                    console.log('进入inc')
+                    item.num++
+                },
+                checkAll() {
+                    // console.log('checkArr', this.checkArr)
+                    console.log('进入全选方法里面了')
+                    console.log(this.checkArr)
+                    if (this.checked) {
+                        this.cartData.forEach(element => {
+                            // console.log(this.checkArr)
+                            let pos = this.checkArr.indexOf(element.id)
+                            console.log('pos', pos)
+                            if (pos == -1) {
+                                console.log('进来push了')
+                                this.checkArr.push(element.id)
+                                console.log('this.checkArr', this.checkArr)
+                                console.log('typeof', typeof (this.checkArr))
+
+                            }
+
+                        })
+                    } else {
+                        this.checkArr = []
+                    }
+
+                },
+                // 反选
+                antiselect() {
+
+                    console.log('进入反选函数了')
+                    this.cartData.forEach(element => {
+                        let pos = this.checkArr.indexOf(element.id)
+                        if (pos > -1) {
+                            this.checkArr.splice(pos, 1)
+                        } else {
+                            this.checkArr.push(element.id)
+                        }
+                    })
+                },
+
+            }
+        })
+    </script>
+</body>
+
+</html>

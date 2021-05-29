@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+           
+        <!-- 1.checkbox 单选使用 v-model绑定的是布尔值 v-model会将绑定的多选框 true||false 赋值到data对象对应的变量中 -->
+        <label for="agree">
+            <input type="checkbox" id='agree' value="" v-model="isAgress"> 同意协议
+        </label>
+        <h2>你选择了：{{isAgress}}</h2>
+        <button :disabled="!isAgress">下一步</button>
+        <br />
+        <!-- 2.checkbox 多选框使用  v-model对应的是一个数组 -->
+        <!-- v-model会将绑定的多选框的value值   把它添加、删除到data对象中双向绑定的数组中  -->
+           <input type="checkbox" value="唱" v-model="hobbies"> 唱
+           <input type="checkbox" value="跳" v-model="hobbies"> 跳
+           <input type="checkbox" value="rap" v-model="hobbies"> rap
+           <input type="checkbox" value="篮球" v-model="hobbies"> 篮球
+           <h2>你选择了：{{hobbies}}</h2>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+          const app = new Vue({
+              el :"#app",
+              data :{
+                  message:"你好阿",
+                  isAgress :false,
+                  hobbies:[]
+              }
+          })
+     </script>
+    </body>
+</html>

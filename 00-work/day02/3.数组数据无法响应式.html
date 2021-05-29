@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div v-for="(item,i) in arr" :key="i">
+            <span>{{item}}</span>
+            <button @click="change(i)">改变数值</button>
+        </div>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el :"#app",
+            data :{
+                fruits: ['apple', 'pear', 'banana', 'orange'],
+                arr:[
+                100,
+                200,
+                300
+               ]
+            },
+            methods:{
+                change(i){
+                    // 这种方法无法响应式，虽然数据改变了，但页面视图层不会变
+                    // this.arr[i] = this.arr[i] * 10;
+
+                    // 数组数据与页面响应式方法1 通过数组方法让数据与视图层响应式
+                    this.arr.splice(i,1,this.arr[i]*10);
+
+                    // 数组数据与页面响应式方法2 通过vue内置的方法强制改变视图层
+                    // Vue.set(要修改的数组，修改哪个索引的值，改成多少)
+                    Vue.set(this.arr,i,this.arr[i]*10);
+                   
+                
+                }
+            }
+        })
+    </script>
+</body>
+</html>

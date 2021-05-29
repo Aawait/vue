@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{message}}</h2>
+
+        <!-- 这里v-bind动态绑定style属性,参数是一个对象，key：value的形式 -->
+        <!-- <h2 :style="{key1(css属性):value1(css属性值)}">{{message}}</h2> -->
+
+        <!-- 对象的属性key可以不加引号，值value一定要加引号，否则会被vue当成变量解析 -->
+        <h2 :style="{fontSize:'50px'}">{{message}}</h2>
+
+        <!-- 这里对象中的属性值不加引号，vue会对它当成变量解析，会去实例中的data对象中查找fontSize这个变量 -->
+        <h2 :style="{fontSize:fontSize,color:color}">{{message}}</h2>
+
+        <!-- 如果觉得对象太长不便于观看，可以把这个对象抽出来，放入vue实例的methods对象中定义一个方法返回该对象 -->
+        <h2 :style="setStyle()">{{message}}</h2>
+
+        <!-- 也可以这样写,把单位拼接再变量后面 -->
+        <h2 :style="{fontSize:font+'px'}">{{message}}</h2>
+
+
+        <!-- v-bind动态绑定style属性，参数是要一个数组，数组中的每一项就是一个对象 对象中写css代码 css属性必须按照驼峰标识 -->
+        <h2 :style="[obj1,obj2]">{{message}}</h2>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                fontSize: '30px',
+                font: 20,
+                color: 'red',
+                obj1: {
+                    color: "#bfc",
+                    fontSize: "20px",
+                },
+                obj2: {
+                    background :"pink",
+                    fontWeight : 600
+                }
+            },
+            methods: {
+                setStyle() {
+                    return {
+                        fontSize: this.fontSize,
+                        color: this.color
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

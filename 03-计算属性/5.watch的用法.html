@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+            <input type="text" name="" id="" v-model="message">
+            <p>{{newMessage}}</p>
+
+            <input type="text" v-model="obj.name">
+            <input type="text" v-model="obj.age">
+
+            <p>obj.name：{{obj.name}}</p>
+            <p>obj.age：{{obj.age}}</p>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el :"#app",
+            data :{
+                message :"Nihao",
+                newMessage:"",
+                hello:"hello watch",
+                obj:{
+                    name:"cici",
+                    age:24
+                }
+            },
+            computed:{},
+            methods:{
+                // watch执行时会自动发送两个数据过来，使用直接接收就可
+                // newValue 是最新的值，oldValue是数据每次改变的上一次的值
+                dataChange(newValue,oldValue){
+                    console.log(newValue);
+                    console.log(oldValue);
+                }
+            },
+            // 再vue中，使用watch来响应数据的变化，能监听data对象中数据发生变化，watch的属性必须是data对象中已存在数据
+            watch:{
+                // 用法1 键值对 直接定义触发事件处理函数，每当监听的数据发生改变时，会执行这个处理函数
+                // 执行这个函数的时候，vue内部会把监听到的最新数据和之前的旧数据传参过去
+                hello:"dataChange",  // 相当于 hello:"dataCange(newValue,oldValue)"
+
+
+                // 用法2 对象形式
+                message:{
+                    // handler 再自己的内部处理监听函数
+                    // 这样有一个特点，就是当值第一次绑定的时候不会执行监听函数，只有值发送改变的时候才会执行
+                    
+                  handler(newValue,oldValue){
+                    console.log(newValue);
+                    // console.log(oldValue);
+                    this.newMessage = newValue;
+                  },
+                  // immediate表示再watch中首次绑定的时候，是否执行handler，值为true表示立即执行handler，值为false，表示值改变才执行handler
+                  // 如果我们需要再最初绑定值的时候也执行函数，就需要用到immediate属性 将它的值设为true
+                  immediate:true,
+                },
+                // 用法3 监听的是一个对象
+                obj:{ 
+                    handler(newValue,oldValue){
+                         console.log(newValue);
+                        console.log(this.obj === newValue);  // true
+                    },
+                      // deep深度监听  当需要监听的是data中的一个对象时，普通的watch方法只能监听data的普通属性，无法监听到对象内部属性的改变
+                    // 此时就需要deep属性对对象进行深度监听
+                    deep:true,
+                }
+            }
+        })
+    </script>
+</body>
+</html>

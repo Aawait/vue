@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 2. 父组件通过再组件标签上 使用子组件创建的 自定义事件 监听到子组件发射过来的数据 并执行自定义事件对应的函数 再事件函数中拿到数据结果 -->
+        <!-- 这里自定义事件有传数据过来 。再使用自定义事件的时候，它会把自定义事件传递过来的数据默认传进事件处理函数中。
+              - 我们只需要再父组件的事件处理函数中接收即可
+              - 使用组件标签 事件处理函数不写参数也不会默认传递事件对象过去 -->
+
+        <!-- v-on 不仅仅可以监听DOM事件，也可以监听组件间的自定义事件 -->
+        <cpn1 :cmessage="message" @item-click="getSonData"></cpn1>
+
+        <p>{{hello}}</p>
+
+    </div>
+
+    <template id="cpn1">
+        <div>
+            <h2>{{cmessage}}</h2>
+
+            <button v-for="item in titles" @click="cpnClick(item)">{{item.name}}</button>
+        </div>
+    </template>
+
+    <script src="../lib/vue.js"></script>
+    <script>
+        const cpn1 = {
+            template : "#cpn1",
+            data(){
+                return {
+                    titles:[
+                        {id:111,name:"热门推荐"},
+                        {id:112,name:"手机数码"},
+                        {id:113,name:"家用家电"},
+                        {id:114,name:"电脑办公"},
+                        {id:115,name:"家居电器"}
+                    ]
+                }
+            },
+            props:{
+                cmessage:{
+                    type:String
+                }
+            },
+            methods:{
+                // 子组件先通过事件拿到传递来过的数据
+                cpnClick(item){
+                //   console.log(item);
+                  // 1.子组件创建自定义事件，用来发射数据
+                  // 自定义事件有两个参数。第一个参数为自定义事件的事件名，第二个参数为需要传递给父组件的数据,这里我们把item传递过去
+                  this.$emit("item-click",item)
+                }
+            }
+        }
+        const app = new Vue({
+            el:"#app",
+            data:{
+                message:"子组件通过发射自定义事件让父组件接收数据， hello emit",
+                hello:""
+            },
+            components:{
+                cpn1
+            },
+            methods:{
+                getSonData(sonData){
+                    // 3.再父组件中的自定义事件对应的事件处理函数中拿到子组件发射过来的数据
+                      console.log(sonData);
+                      this.hello = sonData;
+                     console.log("收到子组件发射的自定义事件的参数了");
+                }
+            }
+        })
+    </script>
+</body>
+</html>

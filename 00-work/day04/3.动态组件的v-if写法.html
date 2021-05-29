@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+         <cpn></cpn>
+    </div>
+ 
+    <template id="cpn">
+          <div>
+              <button @click="change(1)">第一个组件</button>
+              <button @click="change(2)">第二个组件</button>
+              <button @click="change(3)">第三个组件</button>
+              <!-- 创建动态模板 -->
+              <!-- 动态模板就是可以决定让哪个组件展示再页面中 通过动态绑定 is属性 属性值为组件的注册名 -->
+              <!-- <component :is="show"></component> -->
+              <cpn1 v-if = "flag === 1"></cpn1>
+              <cpn2 v-if = "flag === 2"></cpn2>
+              <cpn3 v-if = "flag === 3"></cpn3>
+          </div>
+    </template>
+    
+    <template id="cpn1">
+        <div>
+            <h2>我是组件1的标题</h2>
+            <p>我是组件1的内容-----------</p>
+        </div>
+   </template>
+
+    <template id="cpn2">
+           <div>
+            <h2>我是组件2的标题</h2>
+            <p>我是组件2的内容-----------</p>
+           </div>
+    </template>
+
+    <template id="cpn3">
+        <div>
+            <h2>我是组件3的标题</h2>
+            <p>我是组件3的内容-----------</p>
+        </div>
+   </template>
+
+    <script src="../lib/vue.js"></script>
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {},
+            methods: {},
+            components: {
+                cpn : {
+                    template :"#cpn",
+                    data(){
+                        return {
+                            show :"cpn1",
+                            flag :1
+                        }
+                    },
+                    methods:{
+                        change(i){
+                            // 改变show的值，动态模板就能获取到不同的组件进行展示
+                            // this.show = "cpn" + i
+                            this.flag = i;
+                        }
+                    },
+                    components:{
+                        cpn1 : {
+                            template:"#cpn1",
+
+                        },
+                        cpn2 : {
+                            template:"#cpn2",
+
+                        },
+                        cpn3 : {
+                            template :"#cpn3"
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

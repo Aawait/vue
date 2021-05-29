@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+    <div id='box'>
+          <ul>
+              <!-- v-for指令循环这个数组，item就是每一项，vue会自动动态生成对应的li渲染到页面，响应式的生成，随着数据改变页面跟着改变 -->
+              <li v-for="item in message">{{item}}</li>
+          </ul>
+    </div>
+    <script>
+        const app = new Vue({
+             el:'#box',
+             data:{
+                 message:['名侦探柯南1','名侦探柯南2','名侦探柯南3','名侦探柯南4','名侦探柯南5']
+             }
+        });
+    </script>
+</body>
+</html>

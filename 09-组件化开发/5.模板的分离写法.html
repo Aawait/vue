@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+       <cpn1></cpn1>
+
+       <cpn2></cpn2>
+    </div>
+        <!-- 将其中的html分离出来写，然后挂载到相应的组件上，结构更加的清晰
+        vue定义了两种放案来定义HTML模块的内容 -->
+        
+     <!-- 1. 通过script标签抽离template模板写法   注意type一定要是 text/x-template 然后要把id传过去  -->
+    <script type="text/x-template" id="cpn1">
+        <div>
+            <h2>我是标题</h2>
+            <p>
+                我是内容，哈哈哈哈哈
+            </p>
+        </div>
+    </script>
+
+
+    <!-- 2. 通过template标签引入模板 更简单 也要把id传过去 -->
+    <template id="cpn2">
+         <div>
+             <h2>我是标题2222</h2>
+             <p>我是内容，呵呵呵呵呵</p>
+         </div>
+    </template>
+    <script src="../lib/vue.js"></script>
+    <script>
+       
+       // 注册全局组件
+       Vue.component('cpn1',{
+           template:"#cpn1"
+       })
+
+        const app = new Vue({
+            el:"#app",
+            components:{  // 创建局部组件 并把template模板抽离出去
+                cpn2:{
+                    template:"#cpn2"
+                }
+            }
+        })
+
+  
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active{
+            color: red;
+        }
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+       <ul>
+           <!-- 它会自动遍历这个列表，并且生成对应数量的li -->
+           <!-- <li v-for="变量 in 列表">{{变量}}</li> -->
+                                             <!-- 如果传递的索引和flag相等 就加上这个类名 -->
+           <li v-for="(m,index) in movies" :class="{active:index === flag}" @click="change(index)" v-cloak>{{index}}-{{m}}</li>
+       </ul>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:"#app",
+            data:{
+                movies : ["名侦探柯南","海尔兄弟","蓝猫淘气三千问","哈哈哈哈哈"],
+                isActive : false,
+                flag:0
+            },
+            methods : {
+                // 每次点击把索引传过来 并且赋值给flag
+                change:function(i){
+                    this.flag = i
+                },
+               
+            }
+        });
+    </script>
+</body>
+</html>

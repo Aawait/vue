@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .active {
+            color: #bfc;
+        }
+
+        .line {
+            color: #f00;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 对象语法 -->
+        <!-- <h2 :class='{类名1:boolean,类名2:boolean}'>{{message}}</h2> -->
+
+        <!-- 动态绑定的class不会覆盖原有的class，会合并 -->
+        <h2 class='title' :class='{active:isActive,line:isLine}'>{{message}}</h2>
+
+        <!-- 对象语法也可以写简单点，把对象放在vue实例的methods方法对象中，直接调用这个方法即可 -->
+        <h2 class='title' :class='getClass()'>{{message}}</h2>
+
+
+
+        <!-- 数组语法 (少用) -->
+        <!-- <h2 class='title' :class="['类名1','类名2',...]">{{message}}</h2> -->
+        
+        <!-- 缺点，写死了class -->
+        <h2 class='title' :class="['active','line']">{{message}}</h2>
+
+        <!-- 当然也可以写变量 -->
+        <!-- 注意写变量不能加单引号，否则当成字符串解析 -->
+        <h2 class='title' :class="[active,line]">{{message}}</h2>
+
+        <!-- 也可以把数组写到vue实例中methods方法对象中，这样代码更加简介 -->
+        <h2 class='title' :class="arrClass()">{{message}}</h2>
+
+        <button @click="btnClick">点击换色</button>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                message: "你好啊",
+                isActive: true,
+                isLine: true,
+                active:'cici',
+                line:'vivi'
+            },
+            methods: {
+                btnClick: function () {
+                    this.isLine = !this.isLine;
+                },
+                getClass: function () {
+                    return {
+                        active: this.isActive,
+                        line:this.isLine
+                    }
+                },
+                arrClass: function () {
+                    return [this.active,this.line]
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

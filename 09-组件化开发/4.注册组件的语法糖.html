@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn1></cpn1>
+        <cpn2></cpn2>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        // 之前注册组件的方式，可能会有些繁琐。vue为了简化这个过程，提供了注册的语法糖 主要是省略了调用Vue.extend()的步骤，直接用一个对象代替
+        // 1.注册全局组件的语法糖写法 可以省略Vue.extend 的操作 vue内部会帮我们操作
+        // const cpn1 = Vue.extend()  ;
+
+        // 全局注册组件 第一个参数为你想使用的组件标签名 第二个参数直接放一个对象 对象中有template模板 内部会帮使用 Vue.extend() 这一步
+        Vue.component('cpn1', {
+            template: `
+            <div>
+            <h2>我是标题</h2>
+            <p>我是内容哈哈哈哈</p>
+             </div>
+              `
+        })
+
+        const app = new Vue({
+            el: "#app",
+            components: {
+                cpn2: {  //局部组件注册 语法糖写法
+                    template: `
+            <div>
+            <h2>我是标题22</h2>
+            <p>我是内容哈哈哈哈222</p>
+             </div>
+              `
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

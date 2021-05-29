@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-model 实现对表单的双向绑定 以前都是单项绑定把data对象里的值绑再DOM上 -->
+        <!-- v-model 给表单绑定后 表单的value值会显示这个data对象对应绑定的值   -->
+        <!-- 双向绑定 ：当表单的value值发生改变 data对象里的值与之一起改变 -->
+        <input type="text" v-model="message">
+        {{message}}
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el :'#app',
+            data:{
+                message:"你好阿"
+            }
+        })
+    </script>
+</body>
+</html>

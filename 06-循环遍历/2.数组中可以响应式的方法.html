@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="item in arr">{{item}}</li>
+        </ul>
+        <button @click="btnClick">点击</button>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+            const arr  = [1,2,3,4,5,6,7];
+            const app = new Vue({
+                el:"#app",
+                data:{
+                    arr
+                },
+                methods:{
+                    btnClick(){
+                        // 1.push方法可以做到响应式 数据改变DOM跟着改变
+                        // this.arr.push(8,9);
+                        
+
+                        // 2.pop方法也可以响应式
+                        // this.arr.pop();
+                      
+                        // 3.shift() 方法可以响应式
+                        // this.arr.shift();
+
+                        // 4.unshift() 方法可以响应式
+                        // this.arr.unshift(8,9)
+
+                        // 5.splice() 方法也可以响应式  删除元素 || 增加元素 || 替换元素
+                        // this.arr.splice(1,0,666)
+
+                        // 6.sort()  方法也可以响应式
+
+                        // 7.reverse()  方法也可以响应式
+
+
+
+
+                        // 注意：通过索引值修改数组的元素无法做到响应式
+                      // this.arr[0] = 100;  // 这种方法就不能响应式 数据改变 DOM不会跟着改变
+                    //   this.arr.splice(0,1,100) 可以这样写 就能响应式
+
+                    // 也可以用vue内部的函数方法 也可以做到响应式 
+                    // Vue.set(要修改的对象，要修改位置的索引，要修改的值)
+                    Vue.set(this.arr,0,100);
+
+                    }
+                }
+            })
+    </script>
+</body>
+</html>

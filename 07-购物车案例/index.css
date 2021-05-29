@@ -1,0 +1,35 @@
+#app {
+    width: 800px;
+    margin: 200px auto;
+}
+[v-cloak]{
+    display: none;
+}
+
+#app table{
+    width: 100%;
+    background-color: #f1f1f1;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+#app table thead{
+    background-color: #ccc;
+   
+}
+#app table  th{
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    padding: 0 10px;
+    height: 30px;
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+}
+
+#app table td{
+    text-align: center;
+    border: 1px solid #ddd;
+   
+    height: 40px;
+}

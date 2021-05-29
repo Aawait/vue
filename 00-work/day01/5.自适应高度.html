@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p :style="[txtCss]">{{txt}}</p>
+        <h3 :style="[btnCss]" @click="change">我是下面的内容</h3>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el :"#app",
+            data :{
+                txt:"唐老大”多姆·托莱多（范·迪塞尔 饰）与莱蒂（米歇尔·罗德里格兹 饰）和他的儿子小布莱恩，过上了远离纷扰的平静生活。然而他们也知道，安宁之下总潜藏着危机。这一次，为了保护他所爱的人，唐老大不得不直面过去。他和伙伴们面临的是一场足以引起世界动荡的阴谋，以及一个前所未遇的一流杀手和高能车手。而这个名叫雅各布（约翰·塞纳 饰）的人，恰巧是多姆遗落在外的亲弟弟。",
+                txtCss:{
+                    fontSize:"16px",
+                    color:"#000",
+                    height:"30px",
+                    overflow:"hidden",
+                    transition:"height .5s ease",
+                    margin:"5px 0"
+                },
+                btnCss:{
+                    background:"#ccc",
+                    cursor:"pointer",
+                },
+                flag :false
+            },
+            methods:{
+                change(){
+                    this.flag = !this.flag;
+                    this.txtCss.height = this.flag ? "auto" : "30px";
+                }
+            }
+        })
+    </script>
+</body>
+</html>

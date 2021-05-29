@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+       
+       <!-- 插值操作 -->
+       
+
+       <!-- v-once 指令只会展示最初的数据，不会跟着数据的改变而做出改变 -->
+       <h3 v-once>我不会改变,{{message}}</h3>
+
+       <!-- v-html 指令能解析html标签 -->
+       <h2 v-html="url"></h2>
+       
+       <!-- v-text 指令有点像{{message}} 语法，就是把变量的内容显示再标签上，但没有{{}} 灵活，因为是覆盖式显示，不能拼接 -->
+       <h2 v-text="message"></h2>
+       
+       <!-- Mustache指令 {{}} -->
+       <h2>{{message}}</h2>
+       
+       <!-- v-pre 指令会让vue不会解析这个{{}}语法里面的内容，从而达到标签写什么就显示什么的效果 -->
+       <h2 v-pre>{{message}}</h2>
+       
+       <!-- v-claok 指令会在vue解析之前存在，vue解析完成之后删除，我们可以用它做一些操作，例如再vue解析之前影藏，解析之后再展示内容 -->
+       <h2 v-cloak>{{message}}</h2>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+
+        setTimeout(function(){
+            const app = new Vue({
+                el : '#app',
+                data: {
+                  message:'hello vue',
+                  url:"<a href='www.baidu.com'>百度一下</a>"
+                }
+            })
+        },1000)
+    </script>
+</body>
+</html>

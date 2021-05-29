@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p{
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+        }
+        .red{
+            background-color: #f00;
+        }
+        .green{
+            background-color: green;
+        }
+        .yellow{
+            background-color: #ff0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+           <button @click="change">点击切换</button>
+           <p :class="arr[index]"></p>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:"#app",
+            data:{
+                arr:['red','green','yellow'],
+                index:0
+            },
+            methods:{
+                change(){
+                    this.index ++;
+                    this.index = this.index > 2 ? 0 : this.index;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

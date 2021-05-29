@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-model 用于双向绑定input框或textarea -->
+        <!-- 我们再输入框输入内容的时候，因为input框v-model绑定了message，所以会实时将输入的内容传递给messsage，message发生改变 -->
+        <!-- 当message发生改变的时候 因为我们使用的mustache语法，将值插入到DOM中，所以DOM会发生响应式的改变 -->
+        <!-- 所以 这是通过v-model实现的双向绑定 -->
+         <input type="text" v-model="message">
+         
+
+         v-model 其实是一个语法糖 它背后实际上是包含两个操作
+            - v-bind绑定一个value属性
+            - v-on指令给当前input元素绑定oninput事件 
+        <!-- 等同于下面代码 这样也可以实现双向绑定 不过一般不这样写 有v-model方法更加简洁 -->
+        <input type="text" :value="message" @input="change">
+        <input type="text" :value="message" @input="message = $event.target.value">
+        <h2>{{message}}</h2>
+   
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el :"#app",
+            data : {
+                message:"你好啊"
+            },
+            methods:{
+                change(event){
+                    this.message = event.target.value;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

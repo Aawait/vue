@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <div>
+            <h2>我是标题</h2>
+            <h3>我是内容哈哈哈哈哈</h3>
+            <h4>我是内容呵呵呵呵呵</h4>
+        </div> -->
+
+        <!-- 3. 使用组件 -->
+        <my-cpn></my-cpn>
+        <my-cpn></my-cpn>
+        <my-cpn></my-cpn>
+        <my-cpn></my-cpn>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        // 1.创建组件构造器对象  使用Vue.extend 方法 该方法需要传递一个对象，里面有个属性template 是组件的模板
+        const cpn = Vue.extend({
+            template:`
+            <div>
+            <h2>我是标题</h2>
+            <h3>我是内容哈哈哈哈哈</h3>
+            <h4>我是内容呵呵呵呵呵</h4>
+             </div>`
+        });
+
+
+        // 2. 注册组件  使用Vue.component 方法注册组件 (这种方法注册的是全局组件)
+        // 该方法传递两个参数，第一个就是标签名 你想再页面用什么标签使用你的模板
+        // 第二个参数就是创建的组件构造器对象
+        Vue.component('my-cpn',cpn);
+
+
+        const app = new Vue({
+            el:"#app"
+        })
+    </script>
+</body>
+</html>

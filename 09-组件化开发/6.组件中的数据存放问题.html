@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 每一次使用组件 vue内部都会执行调用data函数 每调用一次data函数  -->
+        <!-- 都会返回一个新的对象 所以每个组件实例都指向不同的对象 所以他们的值是不会互相影响 -->
+        <!-- 如果data对象是一个对象不是一个函数，那么所有的组件实例都指向这个data对象。 -->
+        <!-- 那么改变一个组件实例中的变量属性，其他组件实例数据也会被影响跟着改变 -->
+
+        <!-- 所以data对象 必须是一个函数 并且每次调用返回一个新对象用来保存新实例的数据地址 -->
+          
+          <!-- 调用一次组件 就会得到一个组件实例对象 -->
+           <cpn1></cpn1>
+           <cpn1></cpn1>
+           <cpn1></cpn1>
+    </div>
+
+
+    <template id="cpn1">
+        <!-- 如果想在组件模板中使用变量，要再组件中添加data对象用来存放变量 -->
+        <div>
+            <h2>我是标题111</h2>
+            <p>我是内容，哈哈哈哈111</p>
+            <!-- 组件实例只能用自己组件的的data对象属性或方法，无法访问到vue实例的data对象和方法 -->
+            <p>{{message}}</p> 
+
+            <!-- 再父组件内注册了子组件 就可以再父组件中嵌套子组件使用 -->
+            <cpn2></cpn2>   
+        </div>
+    </template>
+
+
+    <template id="cpn2">
+           <p>我是内容22222222222</p>
+     </template>
+
+
+    <script src="../lib/vue.js"></script>
+    <script>
+
+        // 组件内部 它的属性很像vue实例，他有自己data数据对象，也有自己的methods方法对象，也有自己的components注册组件对象，也有生命周期函数等等
+        Vue.component("cpn1",{
+              template:"#cpn1",
+              // 组件的data数据对象中必须是一个函数 而且这个函数必须返回一个对象 再返回的这个对象里 定义变量
+              // 组件中使用变量 就会自动去对应组件中的data对象中找变量或方法
+              data(){
+                  return{
+                     message:"你好阿",
+
+                  }
+              },
+              components:{  // 再父组件内注册子组件 写在父组件的components对象中 用来注册子组件
+                  cpn2:{   // 创建组件的语法糖写法 内部会使用Vue.extend()帮我们省略这一步
+                      template : "#cpn2"
+                  }
+              }
+        })
+         const app = new Vue({
+             el:"#app"
+         })
+    </script>
+</body>
+</html>

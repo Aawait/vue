@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p{
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>{{ str }}</p> 
+        <p>{{ num + 'aaa'}}</p>
+        <p>{{ str.length }}</p> 
+        <p>{{ num }}</p> 
+        <p>{{ num+num1 }}</p>
+        <p>{{ num > num1 }}</p>  
+        <p>{{ num.toFixed(2) }}</p> 
+        <p>{{ flag }}</p> 
+        <p>{{ arr }}</p> 
+        <p>{{ arr[3] }}</p> 
+        <p>{{ obj }}</p> 
+        <p>{{ obj.name }}</p> 
+        <p>{{ arg1 }}</p> 
+        <p>{{ arg2 }}</p>
+        <p>{{ arg3 }}</p> 
+        <p>{{ num > num1 ? "是" : "否" }}</p>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+               el:"#app",
+               data:{
+                   str : "字符串",
+                   num : 1,
+                   num1 : 100,
+                   flag : true,
+                   arr : [1,2,3,4],
+                   obj : {name:"tom",age:20},
+                   arg1 : Number("hello"),
+                   arg2 : "hello"*1,
+                   arg3 : parseInt("hello vuejs") 
+               }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <!-- 5. 再组件标签上 接收子组件发射的自定义事件，并再对应的事件处理函数拿到结果 -->
+           <cpn :snum1="num1" :snum2="num2" @son-inp1="sonInp1Data" @son-inp2="sonInp2Data"></cpn>
+           <p>父组件的num1---{{num1}}</p>
+           <p>父组件的num2---{{num2}}</p>
+          
+    </div>
+
+
+    <template id="cpn">
+        <div>
+            <h1>props的snum1:{{snum1}}</h1>
+             <p>子组件data的dnum1：{{dnum1}}</p>
+             <!-- 3. 使用子组件内部的data对象数据，并监听input事件，将value发射传递到父组件 -->
+             <!-- <input type="text"  v-model="dnum1"> -->
+             <input type="text" :value="dnum1" @input="inp1Change">
+            <h1>props的snum2:{{snum2}}</h1>
+             <p>子组件data的dnum2：{{dnum2}}</p>
+             <!-- <input type="text"  v-model="dnum2"> -->
+             <input type="text" :value="dnum2" @input="inp2Change">
+        </div>
+    </template>
+
+    <script src="../lib/vue.js"></script>
+    <script>
+
+        /*
+            案例需求：
+                  【1】子组件要从父组件接收数据双向绑定到input上
+                  【2】input输入事件改变子组件的数据，并将这个改变的值发射到父组件，让父组件的数据随之改变
+                  【3】inp1的值要是inp2的值的100倍 反之 inp2的值是inp1的值的 100/1
+                  【4】并且要让props的数据跟着响应改变 
+        */
+        // 注册组件模板对象
+        const cpn = {
+            template:"#cpn",
+            props:{     // 1.创建props对象接收父组件传递的数据
+                snum1:Number,
+                snum2:Number
+            },
+            data(){
+                return {
+                    // 2.保存父组件传递的数据,用来双向绑定
+                    dnum1 :this.snum1,
+                    dnum2 :this.snum2
+                }
+            },
+            methods:{    // 3.监听子组件的input事件，并把value发射自定义事件，让父组件接收
+                inp1Change(e){
+                   this.dnum1 = e.target.value;
+                   // 注意：发射自定义事件时的事件名不能用驼峰命名 要用-连接起来 不然识别不到这个自定义事件
+                //    this.$emit('sonInp1',this.dnum1);  
+                   this.$emit('son-inp1',this.dnum1);  
+                   this.dnum2 = this.dnum1 / 100;
+
+                   this.$emit('son-inp2',this.dnum2);
+
+                },
+                inp2Change(e){
+                     // 1.监听到input的value 赋值到data中的dnum2中
+                      this.dnum2 = e.target.value;
+                      
+                      // 2.发射自定义事件,让父组件接收
+                      this.$emit('son-inp2',this.dnum2);
+                       
+                      // 3.同时修改dnum1的值 赋值给dnum1
+                      this.dnum1 = this.dnum2 * 100;
+
+                      // 4.将更改的dnum1的值再次发射，让父组件监听到并更换值
+                      this.$emit('son-inp1',this.dnum1);
+                }
+            }
+        }
+
+
+        const app = new Vue({
+            el :"#app",
+            data :{
+                num1 : 1,
+                num2 : 0
+            },
+            components:{
+                cpn
+            },
+            methods:{
+                // 6.拿到子组件发射过来的value 绑定自己的num身上 完成双向的绑定
+                // 注意，这里的事件传递过来的value默认是字符串类型，需要转成number 不然不符合子组件props中的type规定会报错
+                sonInp1Data(value){
+                    // console.log(value);
+                    this.num1 =Number(value)
+                },
+                sonInp2Data(value){
+                    // console.log(value);
+                    this.num2 = Number(value)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

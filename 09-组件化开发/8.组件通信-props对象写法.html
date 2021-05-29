@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 2. props 接收父组件传递过来的数据 -->
+        <cpn1  :cmovies="movies" :cmessage="message" :cnum="num"></cpn1>
+    </div>
+    <script type="text/x-template" id="cpn1">
+        <div>
+            <h2>我是cpn1的标题</h2>
+            <h2>我是cpn1的内容哈哈哈哈</h2>
+              
+            <!-- 3.使用子组件内接收父组件传递过来的数据 -->
+            <ul>
+                <li v-for="item in cmovies">{{item}}</li>
+            </ul>
+            <h2>{{cmessage}}</h2>
+        </div>
+    </script>
+    <script src="../lib/vue.js"></script>
+    <script>
+        // 写在vue实例中 代码太多太复杂 我们将组件抽离出来构造好，再vue实例直接注册组件就行
+        const cpn1 = {
+
+        }
+
+        const app = new Vue({
+            el: "#app",
+            data: {
+                movies: ["唱", "跳", "rap", "篮球"],
+                message: "props对象写法",
+                num: 123
+            },
+            components: { // vue实例的组件对象，用来注册局部组件
+                cpn1: { // 注册局部组件cpn1
+                    template: "#cpn1", // 引入组件模板
+
+                    // 1.创建props对象用来和父组件通信传递数据   之前用的数组写法
+
+                    // props 对象写法
+                    props: {
+                        // 1.键值对的形式 用于指定数据类型 要求必须传过来一个xxx类型的数据 指定类型后如果父组件传递不是这个类型的数据会报错
+                        // cmovies : Array,
+                        // cmessage : String,
+                        // cnum : [Number,String]  可以是多种类型，用数组形式
+
+                        // 2.对象的形式 当对数据要求较多的时候 可以使用对象形式写用来接收父组件传递过来数据的变量
+                        cmessage: {
+                            type: String, // 限制数据类型
+                            default: "我是默认值", // 如果父组件没有传递或者子组件没有接收数据  那么cmessage的默认值就是default的属性值
+                            required: true // 必传数据，值是布尔值，如果cmessage没有接收父组件传递的数据，直接报错
+
+                        },
+                        cmovies: {
+                            type: Array,
+                            // 如果type类型指定为object/array的时候，default默认值必须是一个函数，
+                            // 并且这个函数要返回一个type指定类型的数据类型，否则报错
+                            default(){
+                                return []
+                            },
+                        }
+
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

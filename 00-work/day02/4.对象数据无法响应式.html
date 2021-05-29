@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <ul>
+            <li v-for="(item,i) in arr" :key="i">
+                <!-- <span>{{item.id}}----{{item.fruit}}----{{item.addAttr}}</span> -->
+                <span>{{item}}</span>
+                <button @click="add(item,i)">点击添加属性</button>
+            </li>
+        </ul>
+    </div>
+    <script src="../lib/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                arr: [{
+                        id: 1,
+                        fruit: "苹果",
+                    },
+                    {
+                        id: 2,
+                        fruit: "香蕉",
+                    },
+                    {
+                        id: 3,
+                        fruit: "橙子",
+                    },
+                ],
+            },
+            methods:{
+                    add(item,i){
+
+                        // 在Vue实例化后, 再为某一个对象进行增加或删除属性, 那么vue就无法让这个属性变为响应式的,
+
+                        // 这样添加页面视图层无法响应式更新数据
+                        // this.arr[i].addAttr = "我是刚添加的"+this.arr[i].fruit;
+
+                        item.addAttr = "我是刚添加的"+item.fruit;
+                       
+                        // 解决方法一 使用vue实例的this.$set方法  this.$set === Vue.set
+                        // this.$set(item,'addAttr',"我是刚添加的"+item.fruit);
+                         Vue.set(this.arr,i,item);
+                        // Vue.set(item,'addAttr',"我是刚添加的"+item.fruit);
+                        // console.log(this.$set(item,'addAttr',"我是刚添加的"+item.fruit) === Vue.set(item,'addAttr',"我是刚添加的"+item.fruit)); //true
+                      
+                    } 
+                }
+        })
+    </script>
+</body>
+
+</html>

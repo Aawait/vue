@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table{
+            width: 600px;
+            background-color: #ddd;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        table td{
+            height: 30px;
+            border: 1px solid #ccc;
+            text-align: center;
+            box-sizing: border-box;
+            border-collapse: collapse;
+        }
+        h1{
+            width: 600px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+         <!-- 2. 使用props定义的变量接收父组件的数据 -->
+           <cpn :cusers="arr"></cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <slot>
+                <h1>中奖名单</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>宇宙唯一id</th>
+                            <th>用户名</th>
+                            <th>密码</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 3.使用父组件传递过来的参数 -->
+                        <tr v-for="item in cusers">
+                              <td>{{item._id}}</td>
+                              <td>{{item.username}}</td>
+                              <td>{{item.password}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </slot>
+        </div>
+    </template>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../lib/vue.js"></script>
+    <script>
+          const app = new Vue({
+              el:"#app",
+              created(){
+                 axios({
+                     url:"http://127.0.0.1:2600/vue/users",
+                     method:"get"
+                 }).then(res=>{
+                     console.log(res);
+                     this.arr = res.data;
+                 })
+              },
+              data:{
+                  arr:[],
+              },
+              components:{
+                  cpn : {
+                      template:"#cpn", 
+                      props: {
+                          // 1.设置props，用来接收父组件传递过来的数据
+                        cusers:{
+                            type:Array,
+                            required:true,
+                             // 如果type类型指定为object/array的时候，default默认值必须是一个函数，
+                            // 并且这个函数要返回一个type指定类型的数据类型，否则报错
+                            default(){
+                                return []
+                            }
+                        }
+                      },
+                      data(){
+                          return {
+                            cpnArr : this.cusers
+                          }
+                      },
+                      mounted(){
+                          console.log(this);
+                      }
+                     
+                  }
+              }
+          })
+    </script>
+</body>
+</html>
