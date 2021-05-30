@@ -3,7 +3,7 @@
          <!-- 每一个item里面展示的内容由使用组件的时候决定，我们给它两个具名插槽 -->
          <div v-if="!isActive"> <slot name="item-icon"></slot> </div>
          <div v-else> <slot name="item-icon-active"></slot> </div>
-         <div :class="{active:isActive}">
+         <div :style="activeStyle">
              <slot name="item-text"></slot>
          </div>
      </div>
@@ -13,11 +13,25 @@
 export default {
    name:"TabBarItem",
    props: {
-     path: String
+     path: String,
+     activeColor: {
+         type: String,
+         default: "deepPink"
+     }
    },
    data(){
        return {
-           isActive:true
+        //    isActive:true
+       }
+   },
+   computed:{
+       isActive(){
+        //    $route 是当前跳转的路由对象，每一个路由都有一个对应的$route对象
+           return this.$route.path == this.path;
+       },
+       activeStyle(){
+
+           return this.isActive ? {color:this.activeColor} : {}
        }
    },
    methods: {
@@ -45,7 +59,5 @@ export default {
       margin: 3px 0;
       vertical-align: middle ;
   }
-  .active{
-      color: red;
-  }
+
 </style>

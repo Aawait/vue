@@ -17,6 +17,7 @@ VueRouter.prototype.push = function push(location) {
 }
 
 
+
 // 2. 配置路由映射关系
 const routes = [
   {
