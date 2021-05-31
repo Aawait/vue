@@ -38,7 +38,7 @@ const state =  {
     }
  }
 
-// 2.创建vuex对象 再一个项目里最好只有一个store 永远对应其他组件的$store
+// 2.创建vuex对象 再一个项目里最好只有一个store 永远对应其他所有组件的$store
 const store = new Vuex.Store({
    state,
    mutations,

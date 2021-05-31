@@ -5,7 +5,7 @@ export default {
     // 为了解决这个问题，vuex中允许我们将store分割成模块，每一个模块拥有自己的state，mutations，actions，getters
 
 
-    //定义再模块的state最终会塞到实例的state里面去，所以使用直接 $store.state.moduleA
+    //定义再模块的state最终会塞到根实例的state里面去，所以使用直接 $store.state.moduleA
     state:{
         name :"Tom"
     },
