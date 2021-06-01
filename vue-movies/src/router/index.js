@@ -16,6 +16,7 @@ import movie from './routers/movie'
 import cinema from './routers/cinema'
 import message from './routers/message'
 import profile from './routers/profile'
+import details from './routers/details'
 // 2. 配置路由映射关系
 const routes = [
   {
@@ -25,7 +26,8 @@ const routes = [
   movie,
   cinema,
   message,
-  profile
+  profile,
+  details
 ]
 
 const router = new VueRouter({

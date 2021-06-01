@@ -19,6 +19,12 @@ export default {
             height: 44px;
             display: flex;
             color:#191A1b;
+            background: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+
             .navbar-sm{
                 width: 70px;
                 text-align: center;
@@ -38,9 +44,9 @@ export default {
         .navbar-down{
            width: 100%;
            height: 49px;
-           background: #f1f1f1;
            display: flex;
            align-items: center;
+           background: #fff;
              .navbar-item{
                   height: 100%;
                   font-size: 14px;
@@ -63,6 +69,17 @@ export default {
                }
 
   
+        }
+
+        .topshow{
+            display: none;
+        }
+
+        .downshow{
+            position: fixed;
+            top: 44px;
+            left: 0;
+            right: 0;
         }
      }
 </style>
