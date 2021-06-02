@@ -14,7 +14,21 @@ export default {
    name: "App",
    components: { 
       TabBar
+   },
+   data(){
+      return {
+         
+      }
+   },
+   created(){
+      // 接收子组件传递过来的事件,并把传过来值赋给tabTarShow
+      // console.log(this.eventBus);
+      // 利用事件列车绑定监听自定义事件
+      // this.eventBus.$on('tabbar',flag=>{
+      //    this.tabTarShow = flag
+      // })
    }
+
 }
 </script>
 

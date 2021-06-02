@@ -1,7 +1,7 @@
 <template>
-       
-       <ul class="list">
-           <li v-for="(item,index) in list" class="listitem" :key="index" @click="goDetails(item.filmId)">
+       <loading v-if="data.length == 0"></loading>
+       <ul class="list" v-else ref="showlist">
+           <li v-for="(item,index) in data" class="listitem" :key="index" @click="goDetails(item.filmId)">
                <div class="item-left">
                    <img :src="item.poster" alt="">
                </div>
@@ -10,24 +10,24 @@
                       <span class="name">{{item.name}}</span>
                       <span class="num">{{item.item.name}}</span>
                   </div>
-                  <div class="middle-score" v-if="type == 1">
+                  <div class="middle-score" v-if="option.params.type == 1">
                        <span class="label">观众评分</span>
                        <span class="score">{{item.grade}}</span>
                   </div>
                   <div class="middle-actor">
                        <span>主演：{{item.actors | actor}}</span>
                   </div>
-                  <div class="middle-coun" v-if="type == 1">
+                  <div class="middle-coun" v-if="option.params.type == 1">
                        <span>{{item.nation}}</span>&nbsp;|&nbsp;<span>{{item.runtime}}分钟</span>
                   </div>
-                  <div class="middle-coun" v-if="type == 2">
+                  <div class="middle-coun" v-if="option.params.type == 2">
                        <span>上映时间：</span><span>{{item.premiereAt | formatTime}}</span>
                   </div>
                </div>
-               <div class="item-right" v-if="type == 1">
+               <div class="item-right" v-if="option.params.type == 1">
                    <button class="buy">购票</button>
                </div>
-               <div class="item-right" v-if="type == 2 && item.isPresale">
+               <div class="item-right" v-if="option.type == 2 && item.isPresale">
                    <button class="pre">预购</button>
                </div>
            </li>
@@ -37,10 +37,73 @@
 
 <script>
 
-
+import axios from '@/api/axios'
+import loading from 'components/loading/Loading'
 export default {
     name: "List",
-    props: ['list','type'],
+    props: {
+        option: {
+            type: Object,
+            required: true,
+            default(){
+                return {}
+            }
+        }
+    },
+    components: {
+        loading
+    },
+    created(){
+        // 组件一创建立即发送请求获取列表数据,option为父组件传递过来的对象为网络请求的参数
+         this.getlistData(this.option)
+    },
+    data(){
+        return {
+           data:[],
+           flag: false  // 定义标识用于节流
+        }
+    },
+    methods: {
+        goDetails(filmId){
+            // 点击触发动态路由,并把电影id传到详情页
+            this.$router.push('/details/'+filmId);
+        },
+        async getlistData(option){
+            // 配置axios请求头
+            axios.defaults.headers.info = ''
+            let res = await axios(option)
+
+              // 每次请求十条数据合并在一起
+             this.data = this.data.concat(res.data.data.films)
+
+            // 如果已经请求完了所有数据 就把标识关闭 不让继续请求了
+            if(this.data.length >= res.data.data.total){
+                this.flag = false
+            }else{
+                this.flag = true  // 数据完请求就把标识打开 就能请求下一次10条数据
+            }
+        }
+    },
+    updated(){
+
+        let top = this.$refs.showlist.offsetHeight  // list的高度
+        let height = window.innerHeight - 40   // 浏览器可视区域的高度减去tabbar高度
+           window.onscroll = () =>{
+                
+               if(Math.ceil(window.scrollY) >= top - height && this.flag){
+                     this.flag = false;
+                     this.option.params.pageNum ++
+                     this.getlistData(this.option);
+               }
+               
+           }
+    },
+    mounted(){
+
+    },
+    watch: {
+      
+    },
     filters: {
         actor(value){
             let str = '';
@@ -90,12 +153,6 @@ export default {
 
             return week +' '+ time
         }
-    },
-    methods: {
-        goDetails(filmId){
-
-            this.$router.push('/details/'+filmId);
-        }
     }
 }
 </script>
@@ -103,6 +160,7 @@ export default {
 <style lang="scss" scoped>
     .list{
          padding: 0 15px;
+         margin-bottom: 50px;
         .listitem{
             padding: 15px 0;
             display: flex;

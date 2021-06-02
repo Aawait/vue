@@ -30,7 +30,6 @@
 <script>
 
  import NavBar from 'components/navbar/NavBar'
- import axios from '@/api/axios'
 
 export default {
     name: "Movie",
@@ -39,26 +38,22 @@ export default {
     },
     data(){
         return {
-           hotlist:[],
-           pageNum: 1,
-           pageSize: 10,
-           type: 1,
            fixed: false,
         }
     },
     created(){},
     methods: {},
     mounted(){
-        window.onscroll = () =>{
+     
+        addEventListener('scroll',()=>{
 
             this.fixed = window.scrollY >= 130 ? true : false
-
-        }
+        })
     }
 }
 </script>
 
 
 <style lang ="scss" scoped>
-    
+       
 </style>

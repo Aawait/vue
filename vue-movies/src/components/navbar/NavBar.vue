@@ -23,7 +23,8 @@ export default {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
+            right: 0; 
+          
 
             .navbar-sm{
                 width: 70px;
@@ -77,7 +78,7 @@ export default {
 
         .downshow{
             position: fixed;
-            top: 44px;
+            top: 44px; 
             left: 0;
             right: 0;
         }
