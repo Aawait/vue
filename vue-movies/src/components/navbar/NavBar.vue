@@ -1,31 +1,42 @@
 <template>
-       <div id="navbar">
+    <div class="header" ref="navHeader">
+       <div id="navbar" ref="navbar">
          <slot name="navbar-top"></slot>
          <slot name="navbar-down"></slot>
        </div>
+     </div>
 </template>
 
 
 <script>
 export default {
-    name: "NabBar"
+    name: "NabBar",
+    mounted(){
+      
+        this.$refs.navHeader.style.height = this.$refs.navbar.offsetHeight + 'px';
+        this.$refs.navHeader.style.width = '100vw'
+    }
 }
 </script>
 
 <style lang ="scss" scoped>
+    
      #navbar{
+         width: 100%;
+          position: fixed;
+          top: 0;
+
         .navbar-top{
             width: 100%;
             height: 44px;
             display: flex;
             color:#191A1b;
             background: #fff;
-            position: fixed;
+            /* position: fixed;
             top: 0;
             left: 0;
-            right: 0; 
-          
-
+            right: 0;  */
+    
             .navbar-sm{
                 width: 70px;
                 text-align: center;
@@ -76,11 +87,5 @@ export default {
             display: none;
         }
 
-        .downshow{
-            position: fixed;
-            top: 44px; 
-            left: 0;
-            right: 0;
-        }
      }
 </style>

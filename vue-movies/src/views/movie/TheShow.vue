@@ -34,6 +34,9 @@ export default {
     },
     created(){
        
+    },
+    mounted(){
+        document.title = "即将上映"
     }
 }
 </script>

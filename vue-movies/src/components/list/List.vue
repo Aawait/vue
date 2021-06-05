@@ -12,7 +12,7 @@
                   </div>
                   <div class="middle-score" v-if="option.params.type == 1">
                        <span class="label">观众评分</span>
-                       <span class="score">{{item.grade}}</span>
+                       <span class="score">{{item.grade?item.grade:'暂无'}}</span>
                   </div>
                   <div class="middle-actor">
                        <span>主演：{{item.actors | actor}}</span>
@@ -27,7 +27,7 @@
                <div class="item-right" v-if="option.params.type == 1">
                    <button class="buy">购票</button>
                </div>
-               <div class="item-right" v-if="option.type == 2 && item.isPresale">
+               <div class="item-right" v-if="option.params.type == 2 && item.isPresale">
                    <button class="pre">预购</button>
                </div>
            </li>
@@ -160,7 +160,6 @@ export default {
 <style lang="scss" scoped>
     .list{
          padding: 0 15px;
-         margin-bottom: 50px;
         .listitem{
             padding: 15px 0;
             display: flex;
@@ -216,7 +215,8 @@ export default {
 
         .item-right{
             width: 50px;
-            line-height: 100px;
+           display: flex;
+           align-items: center;
             button{
               width: 100%;
               height: 25px;

@@ -10,15 +10,20 @@ axios.interceptors.request.use(function(config){
     let host = '';
     let info = config.headers.info
     // 先要明白会进入else 里面请求电影列表的信息  其他info的变换以后会有新axios API学习 
+
     if ("info" == info) {
         // 详情页面的头
         host = "mall.film-ticket.film.info";
     } else if ("cinema" == info) {
-        // 影院列表
+        // 影院列表的请求头
         host = "mall.film-ticket.cinema.list";
-        //有城市的数据
     } else if ("city" == info) {
+        // 城市列表的请求头
         host = "mall.film-ticket.city.list";
+       
+    } else if ("message" == info) {
+        // 资讯列表的请求头
+        host = "mall.act.static-page.info";
     } else {
         // 列表信息的头
         host = "mall.film-ticket.film.list";

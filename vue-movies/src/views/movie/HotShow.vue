@@ -14,7 +14,10 @@ import List from 'components/list/List'
 export default {
     name: "HotShow",
     created(){
-
+        
+    },
+    mounted(){
+       document.title = "正在热映"
     },
     data(){
         return {

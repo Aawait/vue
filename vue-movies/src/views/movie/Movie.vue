@@ -2,14 +2,14 @@
         <div id="movie">
               <nav-bar>
                        <div class="navbar-top" slot="navbar-top"  :class="{topshow:!fixed}">
-                                <div class="navbar-sm" slot="address">
-                                     <span>广州</span>
+                                <div class="navbar-sm" slot="address" @click="goCitys">
+                                     <span>{{$store.state.city.name}}</span>
                                      <i class="iconfont icon-xia"></i> 
                                 </div>
                                 <div class="navbar-bl" slot="type">电影</div>
                                 <div class="navbar-sm" slot="search"></div>
                        </div>
-                       <div class="navbar-down" slot="navbar-down" :class="{downshow:fixed}">
+                       <div class="navbar-down" slot="navbar-down">
                             <div class="navbar-item">
                                 <router-link  to="/movie/hotshow">
                                    正在热映
@@ -42,7 +42,11 @@ export default {
         }
     },
     created(){},
-    methods: {},
+    methods: {
+        goCitys(){
+            this.$router.push('/citys')
+        }
+    },
     mounted(){
      
         addEventListener('scroll',()=>{

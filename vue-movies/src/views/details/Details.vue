@@ -119,6 +119,9 @@ export default {
       // 给类型中间加个空格
        return value.split('|').join(' | ')
     }
+  },
+  mounted(){
+    document.title = "电影详情"
   }
 };
 </script>

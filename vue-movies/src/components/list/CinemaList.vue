@@ -1,17 +1,19 @@
 <template>
-         <loading v-if="!list.length"></loading>
-        <ul class="cinema" v-else>
-            <li class="cinemaItem" v-for="(item,i) in list" :key="i">
-               <div class="item-left">
-                   <p>{{item.name}}</p>
-                   <p>{{item.address}}</p>
-               </div>
-               <div class="item-right">
-                    <p>￥<span>{{item.lowPrice | fullPrice}}</span>起</p>
-                    <p>{{item.Distance | distance}}</p>
-               </div>
-            </li>
-        </ul>
+         <loading v-if="!$store.state.cinemaList.length"></loading>
+       <div class="cinema" v-else>
+           <ul class="cinemalist">
+               <li class="cinemaItem" v-for="(item,i) in $store.state.cinemaList" :key="i">
+                  <div class="item-left">
+                      <p>{{item.name}}</p>
+                      <p>{{item.address}}</p>
+                  </div>
+                  <div class="item-right">
+                       <p>￥<span>{{item.lowPrice | fullPrice}}</span>起</p>
+                       <p>{{item.Distance | distance}}</p>
+                  </div>
+               </li>
+           </ul>
+        </div>
 
 </template>
 
@@ -34,15 +36,19 @@ export default {
               params: {
                   ticketFlag: 1,
                   k: 6734744,
-                  cityId: 440100
+                  cityId: this.$store.state.city.cityId
               }
           }
         }
     },
     created(){
-        this.getListData()
+        // this.getListData()
+
+        // 使用vuex重构影院数据，执行actions的异步任务，然后再提交到mutations中改变state中的list数据
+        this.$store.dispatch('asyncCinemaData')
     },
     methods: {
+
          async getListData(){
             //  "https://m.maizuo.com/gateway?ticketFlag=1&k=8975302&cityId="
             axios.defaults.headers.info = "cinema"
@@ -64,9 +70,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .cinema{
-        margin-top: 95px;
-        margin-bottom: 50px;
+   .cinema{
+       
+    .cinemalist{
+      margin-bottom: 50px;
         .cinemaItem{
             padding: 15px;
             height: 45px;
@@ -113,4 +120,5 @@ export default {
             }
         }
     }
+   }
 </style>

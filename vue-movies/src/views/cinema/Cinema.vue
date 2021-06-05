@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div id="cinema">
         <nav-bar>
                      <div class="navbar-top" slot="navbar-top">
-                                <div class="navbar-sm" slot="address">
-                                     <span>广州</span>
+                                <div class="navbar-sm" slot="address" @click="goCitys">
+                                     <span>{{$store.state.city.name}}</span>
                                      <i class="iconfont icon-xia"></i> 
                                 </div>
                                 <div class="navbar-bl" slot="type">影院</div>
@@ -42,16 +42,26 @@ export default {
     components: {
         NavBar,
         CinemaList
+    },
+    methods: {
+       goCitys(){
+           this.$router.push('/citys')
+       }
+    },
+    mounted(){
+        document.title = "影院"
     }
 }
 </script>
 
 <style lang="scss" scoped>
+    #cinema{
+        height: 100vh;
+
+    }
     .cinema-header{
-        position: fixed;
-        top: 44px;
-        left: 0;
-        right: 0;
+        position: sticky;
+        top: 0;
         border-bottom: 1px solid #ededed;
     }
 

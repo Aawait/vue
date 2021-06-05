@@ -1,4 +1,5 @@
 <template>
+
   <div id="tabbar">
        <tab-bar-item path="/movie">
              <i slot="nav-icon" class="iconfont icon-dianying1"></i>
@@ -17,6 +18,7 @@
              <span slot="nav-text">我的</span>
        </tab-bar-item>
   </div>
+
 </template>
 
 
@@ -31,7 +33,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  
+
   #tabbar{
       height: 49px;
       display: flex;
@@ -39,7 +41,8 @@ export default {
       bottom:0 ;
       left: 0;
       right: 0;
-      background: #f1f1f1;
+      background: #fff;
       box-shadow: 0 -2px 2px rgba(201,201,201,0.2);
   }
+  
 </style>
