@@ -42,11 +42,12 @@ export default new Vuex.Store({
      // 登录成功后更改state里面的login.mobile
      userlogin(state,payload){
        state.login.mobile = payload
-
+       localStorage.setItem('mobile',payload)
      },
      // 登陆成功后将token推入state
      addtoken(state,payload){
        state.login.token = payload
+       localStorage.setItem('token',payload)
      }
   },
   actions: {

@@ -14,7 +14,7 @@ import List from 'components/list/List'
 export default {
     name: "HotShow",
     created(){
-        
+      
     },
     mounted(){
        document.title = "正在热映"
@@ -34,7 +34,7 @@ export default {
                         pageSize: 10,
                         type: 1
                  },
-           }
+           },
         }
     },
     components: {

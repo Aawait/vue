@@ -97,8 +97,8 @@ export default {
                                  this.$store.commit('addtoken',res.data.token)
 
                                  // 将token保存到本地
-                                 localStorage.setItem('token',res.data.token)
-                                 localStorage.setItem('mobile',res.data.data.mobile)
+                                //  localStorage.setItem('token',res.data.token)
+                                //  localStorage.setItem('mobile',res.data.data.mobile)
                                  setTimeout(()=>{
                                      this.$router.push('/movie')
                                  },1000)

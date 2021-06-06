@@ -48,14 +48,14 @@ export default {
             default(){
                 return {}
             }
-        }
+        },
     },
     components: {
         loading
     },
     created(){
         // 组件一创建立即发送请求获取列表数据,option为父组件传递过来的对象为网络请求的参数
-         this.getlistData(this.option)
+         this.getlistData(this.option)  
     },
     data(){
         return {

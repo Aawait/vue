@@ -38,7 +38,7 @@
                   </li>
                   <li>
                       <img src="~assets/img/set.png" alt="">
-                      <span class="label">设置</span>
+                      <span class="label" @click="exit">退出</span>
                       <i class="iconfont icon-you2"></i>
                   </li>
               </ul>
@@ -57,6 +57,9 @@ export default {
         },
         register(){
             this.$router.push('/register')
+        },
+        exit(){
+            localStorage.removeItem('mobile')
         }
     },
     mounted(){
