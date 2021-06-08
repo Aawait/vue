@@ -27,17 +27,12 @@ export default {
     },
     methods: {
       tabClick(item,i){
-        this.selectIndex = i
-        let path = ''
-        if(item === '流行'){
-          path = '/home/pop'
-        }else if(item === '新款'){
-          path = '/home/new'
-        }else{
-          path = '/home/sell'
-        }
 
-        this.$router.push(path)
+        this.selectIndex = i
+
+        // 发送数据给父组件，并把索引传过去
+        this.$emit('tabClick',i)
+
       }
     }
 }

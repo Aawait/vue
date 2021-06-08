@@ -1,12 +1,6 @@
 <template>
   <div class="goodslist">
-    <div>我是goods的 {{type}} 商品列表</div>
-    <goods-item></goods-item>
-    <goods-item></goods-item>
-    <goods-item></goods-item>
-    <goods-item></goods-item>
-    <goods-item></goods-item>
-    <goods-item></goods-item>
+     <GoodsItem v-for="(item,i) in goods" :key="i" :gooditem="item" />
   </div>
 </template>
 
@@ -21,7 +15,23 @@ export default {
     GoodsItem
   },
   props: {
-    type:String
+    goods: {
+      type: Array,
+      default(){
+        return []
+      }
+    }
   }
 }
 </script>
+
+
+<style lang="scss" scoped>
+  .goodslist{
+    display: flex;
+    flex-wrap: wrap;
+    // padding: 0 5px;
+    justify-content: space-evenly;
+
+  }
+</style>

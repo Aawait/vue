@@ -12,24 +12,6 @@ const routes = [
    {
      path: '/home',
      component: () => import('views/home/Home'),
-     children: [
-       {
-         path: '',
-         redirect: '/home/pop'
-       },
-       {
-         path: '/home/pop',
-         component: () => import('views/home/childcpn/Pop')
-       },
-       {
-         path: '/home/new',
-         component: () => import('views/home/childcpn/New')
-       },
-       {
-         path: '/home/sell',
-         component: () => import('views/home/childcpn/Sell')
-       }
-     ]
    },
    {
      path: '/category',
